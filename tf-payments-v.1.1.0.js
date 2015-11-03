@@ -101,6 +101,8 @@ function onSelectCombo(){
 	}
 }
 function onSelectRadio(radio){
+	btnLabel = document.querySelector("#pp-div-text");
+	btnContainer = document.querySelector("#pp-container");
 	if (radio.id === "radio-payment-1") {
 		btnContainer.style.display = "block";
 		btnLabel.style.display = "block";
