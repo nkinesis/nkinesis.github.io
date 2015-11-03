@@ -1,0 +1,211 @@
+﻿<html>
+
+    <head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap-theme.css">
+    <script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="myfunctions.js"></script>
+    </head>
+
+
+   
+    
+    <body class="jumbotron" id="#stBody" >
+
+	        <div class="container-fluid" style="display:block;">
+            <h2>Distribuição de Frequência</h2>
+            <p>Com intervalos de classe</p>
+            
+            <p>Insira um valor no campo de texto e pressione Enter para inserir o próximo campo. <br/>
+            Quando estiver pronto, clique em "Criar!" para gerar a tabela.</p>
+        </div>
+	
+	
+    <div class="container-fluid" style="display:block;">
+        <form id="#form1" onsubmit='return false'>
+            <input type="button" class="btn btn-danger" onclick="createClassFrTable();" value="Criar!"> <br/><br/>
+			<input type="text" class="cell valuecell" onkeypress="newField(event);" style="margin-right:-4px;">
+        </form>    
+			<div id="Figraph">
+			</div>
+			
+			<div id="fcigraph">
+			</div>
+
+			<div id="freqgraph">
+			</div>
+
+			<div id="calcs" style="float:right">
+				<h2 style="margin-bottom:20px;">Medidas de Posição</h2>
+				<div id="mpos"></div>
+				<br>
+				<br>
+				<p>Informe o quartil/percentil desejado nos campos de texto abaixo e pressione o botão "Calcular" para visualizar os resultados.</p>
+				<input type="text" id="qt-txt" class="cell">
+				<input type="button" class="btn btn-primary" onclick="quartile(document.getElementById('qt-txt').value)" value="Calcular Quartil"> 
+				<br>
+				<br>
+				<input type="text" id="pc-txt" class="cell">
+				<input type="button" class="btn btn-primary" onclick="percentile(document.getElementById('pc-txt').value)" value="Calcular Percentil"> 
+			</div>
+			
+    <div style="width:40%;margin:0;margin-top: 2em;">
+    		<table id="table" class="table table-striped" border="1px" >
+				<tr id="tbhead" style="text-align:center;font-weight:bold;">
+					<td width="300px">Valores</td>
+					<td width="120px">fi</td>
+                    <td id ="xi" width="120px">xi</td>
+                    <td id ="fri" width="120px">fri</td>
+                    <td id ="FFi" width="120px">Fi</td>
+                    <td id ="FFri" width="120px">Fri</td>
+                    <td id ="FFri" width="120px">fci</td>
+				</tr>
+			</table>
+			<input type="button" class="btn btn-danger" onclick="freqGraph();" value="Polígono de Freq."> 
+			<input type="button" class="btn btn-danger" onclick="FiGraph();" value="Freq. Acumulada"> 
+			<input type="button" class="btn btn-danger" onclick="fciGraph();" value="Curva Polida"> 
+			<input type="button" class="btn btn-primary" onclick="calcs();" value="Outros Cálculos"> 
+    </div>
+
+    </div>
+    </body>
+
+        <script>
+            var table = [];
+            var total = [];
+            var tclass = [];
+            var freq = [];
+            var cl1 = [];
+            var cl2 = [];
+            var cl3 = [];
+            var cl4 = [];
+            var cl5 = [];
+            var cl6 = [];
+            var cl7 = [];
+            var cl8 = [];
+            var cl9 = [];
+            var cl10 = [];
+            var vai = true;
+            var globalArrays = [cl1,cl2,cl3,cl4,cl5,cl6,cl7,cl8,cl9,cl10];
+            var fri = [];
+			var fci = [];
+            var FFi = [];
+            var FFri = [];
+            var sum = 0;
+            var xi = [];
+            var thetotal = 0;
+            var fritotal = 0.0;
+			var xifi = [];
+			var auxMd = [];
+			
+            var ax = xi;	
+			var bx = freq;
+			var cx = tclass;
+			var dx = FFi;
+			var ex = fci;
+			
+            function createClassFrTable(){
+                if (freq.length != 0) {
+					alert('A tabela já foi gerada! Para gerar uma nova tabela, recarregue a página.');
+				} else {
+					//STARTING FUNCTION
+					createRaw();
+					
+					//table = [4, 4, 5, 6, 8, 9, 9, 10, 11, 12, 13, 15, 15, 17, 18, 18, 20, 21, 22, 23];
+					
+					var totalmin = (Math.min.apply( Math, table )); //limite inferior da primeira classe
+					var totalmax = (Math.max.apply( Math, table )); //limite superior da última classe
+				
+					var numclass = Math.floor(1+3.3*(Math.log(table.length)/Math.log(10)));//número de classes
+					var totalamp = totalmax-totalmin; //amplitude total
+					var ampclass = Math.ceil(totalamp/numclass);  //amplitude das classes
+					
+					console.log('numclass ' + numclass);
+					console.log('ampclass' + ampclass);
+					console.log('totalamp ' + totalamp);
+					console.log('tablelength' + table.length);
+					console.log('totalmin ' + totalmin);
+					console.log('totalmax ' + totalmax);
+
+					var tptotalmin = totalmin;
+
+					for (i=0; i <= numclass; i++){ 
+						tclass.push(Math.ceil(tptotalmin));
+						tptotalmin += ampclass;    
+					}     
+					
+					console.log('tclass ' + tclass);
+					
+					for (i=0; i<10; i++) {
+						var r = (tclass[i]+tclass[i+1])/2;
+						
+						if (!isNaN(r) && r != 'undefined') {
+							xi.push(r);
+						}
+					}
+					
+					
+					for (i=0; i <= table.length; i++){ 
+						if ((table[i] >= tclass[0]) && (table[i] < tclass[1])) {
+							cl1.push(table[i]); 
+							
+						} else if ((table[i] >= tclass[1]) && (table[i] < tclass[2])) {
+							cl2.push(table[i]);
+
+						} else if ((table[i] >= tclass[2]) && (table[i] < tclass[3])) {
+							cl3.push(table[i]);
+							
+						} else if ((table[i] >= tclass[3]) && (table[i] < tclass[4])) {
+							cl4.push(table[i]);
+							
+						} else if ((table[i] >= tclass[4]) && (table[i] < tclass[5])) {
+							cl5.push(table[i]);
+							
+						} else if ((table[i] >= tclass[5]) && (table[i] < tclass[6])) {
+							cl6.push(table[i]);
+							
+						} else if ((table[i] >= tclass[6]) && (table[i] < tclass[7])) {
+							cl7.push(table[i]);
+							
+						} else if ((table[i] >= tclass[7]) && (table[i] < tclass[8])) {
+							cl8.push(table[i]);
+							
+						} else if ((table[i] >= tclass[8]) && (table[i] < tclass[9])) {
+							cl9.push(table[i]);
+							
+						} else if ((table[i] >= tclass[9]) && (table[i] < tclass[10])) {
+							cl10.push(table[i]);
+							
+						}            
+					}   
+
+					totalFrequency();
+					relativeFrequency();
+					accFrequency();
+					relAccFrequency();  
+					calculatedFrequency();
+					drawClassTable();  	
+					prepareChartArrays();
+					
+				}
+            }
+			 
+            /*ARRAYS PARA TESTE*/
+            
+            //TESTE 1
+            //table = [150, 154, 155, 155, 156, 157, 160, 160, 161, 162, 163, 164, 165, 165, 166, 166, 167, 167, 167, 168, 168, 169, 169, 169, 169, 170, 170, 171, 172, 172, 172, 174, 174, 174, 175, 176, 176, 176, 177, 177, 179, 180, 180, 184, 184, 185, 187, 189];
+            
+            //TESTE 2
+            //table = [41, 41, 41, 42, 42, 43, 44, 45, 46, 46, 50, 50, 51, 52, 54, 57, 58, 58, 60, 60]
+            
+            //TESTE ADRIANA
+            //[4, 4, 5, 6, 8, 9, 9, 10, 11, 12, 13, 15, 15, 17, 18, 18, 20, 21, 22, 23]
+                
+        </script>
+		
+		<script type="text/javascript" src="highcharts.js"></script>
+		<script type="text/javascript" src="mycharts.js"></script>
+		<script src="http://code.highcharts.com/modules/exporting.js"></script>
+</html>

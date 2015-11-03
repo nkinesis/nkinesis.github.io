@@ -1,12 +1,37 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<title>Teste</title>
-<meta charset="utf-8">
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-<meta http-equiv="Content-Language" content="en">
+﻿<html>
+
+<head class="container-fluid" style="display:block;">
+    <div class="animcontainer1">
+        <h1 style="text-align:center">Olá, usuário!</h1>
+        <h1 style="text-align:center; margin-bottom:50px;">:)</h1>
+    </div>
+    <link rel="stylesheet" type="text/css" href="bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap-theme.css">
+    <script type="text/javascript" src="jquery.js"></script>
 </head>
-<body>
-Hello World!
+
+<body class="jumbotron" style="background-color:#82bcce">
+   
+    <div class="animcontainer2">
+      <div class="panel panel-primary" style="margin-left:auto; margin-right:auto; width:500px; background-color:#70c0d8">
+            <div class="panel-heading">
+              <h3 class="panel-title" style="text-align:center;font-weight:bold;">O que você gostaria de fazer?</h3>
+            </div>
+            <div class="panel-body">
+                <input class="btn btn-primary" type="button" style="margin-left:auto; margin-right:auto;" 
+                value="1. Criar Tabela Rol" onclick="window.location='rawtable.html';"/><br/><br/>
+                <input class="btn btn-success" type="button" value="2. Criar Distribuição de Frequência (Sem Intervalos de Classe)" style="margin-left:auto; margin-right:auto;" onclick="window.location='noclasstable.html';"/><br/><br/>
+                <input class="btn btn-danger" type="button" value="3. Criar Distribuição de Frequência (Com Intervalos de Classe)"style="margin-left:auto; margin-right:auto;" onclick="window.location='classtable.html';"/><br/><br/>
+            </div>
+        </div>
+     </div>   
 </body>
+
+<script>
+       $(document).ready(function () {
+            $('.animcontainer1').fadeIn(2000).removeClass('hidden');
+            $('.animcontainer2').delay(2000).fadeIn(500).removeClass('hidden');
+       });
+</script>
+
 </html>

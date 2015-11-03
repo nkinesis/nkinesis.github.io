@@ -1,0 +1,240 @@
+﻿<html>
+
+    <head>
+        <div class="container-fluid" style="display:block;">
+            <h1>Tabela Rol</h1>
+            <p>Tabela primitiva de dados</p>
+            
+            <p>Insira um valor no campo de texto e pressione Enter para inserir o próximo campo. <br/>
+            Quando estiver pronto, clique em "Criar!" para gerar a tabela.</p>
+        </div>
+    </head>
+
+    <script type="text/javascript" src="jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap-theme.css">
+    
+    <body class="jumbotron" id="#stBody" >
+
+    <div class="container-fluid" style="display:block;">
+        <form id="#form1" onsubmit='return false'>
+            <input type="button" class="btn btn-primary" onclick="createRaw();" value="Criar!"> <br/><br/>
+			<input type="text" class="cell" onkeypress="newField(event);" style="margin-right:-4px;">
+        </form>    
+    <div style="width:20%;">
+    		<table id="table" class="table table-striped" border="1px" >
+				<tr id="tbhead" style="text-align:center;font-weight:bold;">
+					<td width="120px">Valores</td>
+				</tr>
+    </div>
+			</table>
+    </div>
+    </body>
+
+        <script>
+            var table = [];
+            var total = [];
+            var tclass = [];
+            var freq = [];
+            var cl1 = [];
+            var cl2 = [];
+            var cl3 = [];
+            var cl4 = [];
+            var cl5 = [];
+            var cl6 = [];
+            var cl7 = [];
+            var cl8 = [];
+            var cl9 = [];
+            var cl10 = [];
+            var vai = true;
+            var globalArrays = [cl1,cl2,cl3,cl4,cl5,cl6,cl7,cl8,cl9,cl10];
+            var fri = [];
+            var FFi = [];
+            var FFri = [];
+            var sum = 0;
+                    
+            function newField(e){
+                if (e.keyCode==13) {
+                    $('<input type="text" class="cell" onKeyPress="newField(event)"/>').appendTo('form');
+                    $('.cell').last().focus();
+                }
+            }        
+
+			function sortNumber(a,b) {
+				return a - b;
+			}
+			
+            function createRaw(){
+                $('.cell').each(function(){
+					var a =	$(this).val()
+                    table.push(parseInt(a));
+                });   
+                table = table.sort(sortNumber);
+                
+                var linhaHTML = [];
+                for (var i = 0; i < table.length; i++) {              
+                    linhaHTML.push('<tr>' + '<td>' + table[i] + '</td>' + '</tr>');
+                }
+                document.getElementById('table').innerHTML += linhaHTML.join('');
+            }
+            
+            function countInArray(array, what) {
+                var count = 0;
+                for (var i = 0; i < array.length; i++) {
+                    if (array[i] === what) {
+                        count++;
+                    }
+                }
+                return count;
+            }
+            
+            function createNoClassFrTable(){
+                createRaw();         
+                var linhaHTML = [];
+                              
+                for (var i = 0; i < table.length; i++) {
+                        
+                        var tal = countInArray(table, table[i]);
+                        var crt = '<tr>' + '<td>' + table[i] + '</td>' 
+                        + '<td>' +  tal + '</td>' + '</tr>'
+                        var nxt = '<tr>' + '<td>' + table[i+1] + '</td>' 
+                        + '<td>' +  tal + '</td>' + '</tr>'
+                        
+                        if (vai == true) {
+                            linhaHTML.push('<tr>' + '<td class="fi1">' + table[i] + '</td>' 
+                            + '<td>' +  tal + '</td>' + '</tr>');
+                        } else {
+                            console.log('Keep going!');
+                        }
+                        
+                        if (crt == nxt) {
+                            vai = false;
+                        } else {
+                            vai = true;
+                        }
+                }
+                document.getElementById('table').innerHTML += linhaHTML.join('');
+            }
+
+            function sturges(){
+                var result = Math.floor(1+3.3*(Math.log(table.length)/Math.log(10))); 
+                
+                //nunca haverão mais de 10 classes
+                if (result > 10) {
+                    result = 10;
+                }
+                
+                return result;
+            }
+            
+            function createClassFrTable(){
+
+                var totalmin = (Math.min.apply( Math, table )); //limite inferior da primeira classe
+                var totalmax = (Math.max.apply( Math, table )); //limite superior da última classe
+            
+                var numclass = Math.floor(1+3.3*(Math.log(table.length)/Math.log(10)));//número de classes
+                var totalamp = totalmax; //amplitude total
+                var ampclass = Math.ceil(totalamp/numclass);  //amplitude das classes
+                
+                console.log('numclass ' + numclass);
+                console.log('ampclass' + ampclass);
+                console.log('totalamp ' + totalamp);
+                console.log('tablelength' + table.length);
+                console.log('totalmin ' + totalmin);
+                console.log('totalmax ' + totalmax);
+
+                var tptotalmin = totalmin;
+
+                for (i=0; i <= numclass; i++){ 
+                    tclass.push(Math.ceil(tptotalmin));
+                    tptotalmin += ampclass;    
+                }     
+                
+                console.log('tclass ' + tclass);
+                
+                for (i=1; i <= table.length; i++){ 
+                    if ((table[i] >= tclass[0]) && (table[i] <= tclass[1])) {
+                        cl1.push(table[i]); 
+                    } else if ((table[i] > tclass[1]) && (table[i] <= tclass[2])) {
+                        cl2.push(table[i]);
+                    } else if ((table[i] > tclass[2]) && (table[i] <= tclass[3])) {
+                        cl3.push(table[i]);
+                    } else if ((table[i] > tclass[3]) && (table[i] <= tclass[4])) {
+                        cl4.push(table[i]);
+                    } else if ((table[i] > tclass[4]) && (table[i] <= tclass[5])) {
+                        cl5.push(table[i]);
+                    } else if ((table[i] > tclass[5]) && (table[i] <= tclass[6])) {
+                        cl6.push(table[i]);
+                    } else if ((table[i] > tclass[6]) && (table[i] <= tclass[7])) {
+                        cl7.push(table[i]);
+                    } else if ((table[i] > tclass[7]) && (table[i] <= tclass[8])) {
+                        cl8.push(table[i]);
+                    } else if ((table[i] > tclass[8]) && (table[i] <= tclass[9])) {
+                        cl9.push(table[i]);
+                    } else if ((table[i] > tclass[9]) && (table[i] <= tclass[10])) {
+                        cl10.push(table[i]);
+                    }            
+                }   
+				           
+                totalFrequency();
+                relativeFrequency();
+                accFrequency();
+                relAccFrequency();  
+				drawClassTable();  		
+            }
+            
+            function drawClassTable(){	            
+                var linhaHTML = [];
+                
+                for (i=0; i < (tclass.length-1); i++){     
+                    linhaHTML.push('<tr>' + '<td>' + tclass[i] + ' --| ' + tclass[i+1] + '</td>' 
+                    + '<td class="fi1">' +  globalArrays[i].length + '</td>' 
+                    + '<td class="fri1">' +  fri[i] + '</td>' 
+                    + '<td class="FFi1">' +  FFi[i] + '</td>' 
+                    + '<td class="FFri1">' +  FFri[i] + '</td>' 
+                    + '</tr>');
+                }
+                
+                document.getElementById('table').innerHTML += linhaHTML.join('');
+            }
+            
+             function totalFrequency(){
+		 
+                for (i=0; i < (tclass.length-1); i++){     
+                    freq.push(globalArrays[i].length);
+                }
+         
+                for (i=0; i < (tclass.length-1); i++){     
+                     sum += globalArrays[i].length;
+                }
+             }
+             
+             function relativeFrequency(){	
+                for (i=0; i < freq.length; i++) {
+                    var a = (freq[i])/sum;
+                    fri.push(a.toFixed(2));
+                }
+             }
+
+            function accFrequency(){	
+                var a = freq[0];
+                
+                for (i=0; i < freq.length; i++) {
+                    FFi.push(a);
+                    a += freq[i];
+                }
+                console.log('FFi ' + FFi);
+                
+             }        
+
+            function relAccFrequency(){	
+                for (i=0; i < freq.length; i++) {
+                    var a = FFi[i]/sum;
+                    FFri.push(a.toFixed(2));
+                }
+                console.log('FFri' + FFri);
+                
+             }                
+             
+        </script>
+</html>
