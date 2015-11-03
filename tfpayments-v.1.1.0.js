@@ -3,14 +3,16 @@ var quarto = "";
 var combo = "";
 var onlinePayment = false;
 var link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=";
-var btnDiv = document.querySelector(".div-success");
+var paymentDiv = document.querySelector(".div-success");
 var radioDiv = document.querySelector(".radio-payment-container");
-var input = btnDiv.querySelector("#itemCode");
+var input = paymentDiv.querySelector("#itemCode");
+var btnContainer = document.querySelector("#pp-container");
+var btnLabel = document.querySelector("#pp-div-text");
 var btn = '<a id="itemCode" target="_blank" href="#"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="Buy Now Button" /></a>'
 var valueArray = ["8KCQJXWUW53W6","VGKYZEDZD8MLA", "3FEVRMJW7ZNPW","SCG25TLD3X44W","L8DKJ77KPVU2Q","LJNV7UAKYW4GG","GZQS24KWK4QBE","G7W5QRJYHNNXQ","XVM5X5Y2SN9TY", "WZVLRHKWMHTJU", "CGYHN9E7JNDT4"];
 init();
 function init() {
-    if (btnDiv) {
+    if (paymentDiv) {
         document.querySelector("#radio-payment-1").setAttribute("onclick", "onSelectRadio(this)");
         document.querySelector("#radio-payment-2").setAttribute("onclick", "onSelectRadio(this)");
     }
@@ -20,57 +22,49 @@ function onSelectCombo(){
 	var str = document.querySelector("#data-imersao").value;
 	tipo = str.charAt(str.length-2);
 	quarto = document.querySelector("#tipo-alojamento") ? document.querySelector("#tipo-alojamento").value : "";
-	if (tipo === "7") {
+	if (tipo === "7" || tipo === "8") {
 	    if (quartoDiv)  {
             quartoDiv.style.display = "none";
             quartoDiv.querySelector("#tipo-alojamento").value = "1";
 	    }
-		quarto = "1";
-    } else if (tipo === "8") {
-        if (quartoDiv)  {
-            quartoDiv.style.display = "none";
-            quartoDiv.querySelector("#tipo-alojamento").value = "1";
-        }
-		quarto = "1";
+	quarto = "1";
     } else {
         if (quartoDiv && quartoDiv.style.display === "none") {
             quartoDiv.style.display = "block";
             quartoDiv.querySelector("#tipo-alojamento").value = "";
-			quarto = "";
+	    quarto = "";
         }
     }
 	combo = "" + tipo + quarto;
 	 if (tipo != "" && quarto != "") {
-		var divexists = document.querySelector("#pp-container");
-		var divexists2 = document.querySelector("#pp-div-text");
-		var div = document.createElement('DIV');
-		var divText = document.createElement('DIV');
-		divText.id = "pp-div-text"
-		div.id = "pp-container";
-		if (divexists && divexists2) {
-			divexists.parentNode.removeChild(divexists);
-			divexists2.parentNode.removeChild(divexists2);
+		var newContainer = document.createElement('DIV');
+		var newLabel = document.createElement('DIV');
+		newLabel.id = "pp-div-text"
+		newContainer.id = "pp-container";
+		if (btnContainer && btnLabel) {
+			btnContainer.parentNode.removeChild(btnContainer);
+			btnLabel.parentNode.removeChild(btnLabel);
 		}
-		div.innerHTML = btn;
-		var p = document.createElement("P");
-		var label = document.createElement("P");
-		p.className = "paragrafo";
-		p.innerHTML = "<br/>Efetue o pagamento online clicando no botão abaixo:<br/>";
-		label.innerHTML = "Pagar com <img src='https://daks2k3a4ib2z.cloudfront.net/5529c1f4264213136f7d6c18/56378332c41f43c75b7c5037_paypal-logo.png' style='width:100px'>";
-		label.style.marginTop = "20px";
-		label.style.fontWeight = "bold";
-		label.style.fontSize = "1.5em";
-		divText.appendChild(p);
-		divText.appendChild(label);
-		btnDiv.appendChild(divText);
-		btnDiv.appendChild(div);
+		newContainer.innerHTML = btn;
+		var paymentText = document.createElement("P");
+		var paymentLabel = document.createElement("P");
+		paymentText.className = "paragrafo";
+		paymentText.innerHTML = "<br/>Efetue o pagamento online clicando no botão abaixo:<br/>";
+		paymentLabel.innerHTML = "Pagar com <img src='https://daks2k3a4ib2z.cloudfront.net/5529c1f4264213136f7d6c18/56378332c41f43c75b7c5037_paypal-logo.png' style='width:100px'>";
+		paymentLabel.style.marginTop = "20px";
+		paymentLabel.style.fontWeight = "bold";
+		paymentLabel.style.fontSize = "1.5em";
+		newLabel.appendChild(paymentText);
+		newLabel.appendChild(paymentLabel);
+		paymentDiv.appendChild(newLabel);
+		paymentDiv.appendChild(newContainer);
 		radioDiv.style.display = "block";
 	 } else {
-	    radioDiv.style.display = "none";
+	    	radioDiv.style.display = "none";
 		radioDiv.querySelector("#radio-btn-yes").checked = false;
 		radioDiv.querySelector("#radio-btn-no").checked = false;
 	 }
-	 input = btnDiv.querySelector("#itemCode");
+	 input = paymentDiv.querySelector("#itemCode");
 	switch(combo) {
 		case "1":
 			input.setAttribute("href", link + valueArray[0]);
@@ -110,10 +104,10 @@ function onSelectCombo(){
 }
 function onSelectRadio(radio){
 	if (radio.id === "radio-payment-1") {
-		document.querySelector("#pp-div-text").style.display = "block";
-		document.querySelector("#pp-container").style.display = "block";
+		btnContainer.style.display = "block";
+		btnLabel.style.display = "block";
 	} else {
-		document.querySelector("#pp-div-text").style.display = "none";
-		document.querySelector("#pp-container").style.display = "none";
+		btnContainer.style.display = "none";
+		btnLabel.style.display = "none";
 	}
 }
