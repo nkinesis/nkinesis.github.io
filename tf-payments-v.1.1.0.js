@@ -36,6 +36,8 @@ function onSelectCombo(){
         }
 	combo = "" + tipo + quarto;
 	 if (tipo != "" && quarto != "") {
+	 	btnLabel = document.querySelector("#pp-div-text");
+		btnContainer = document.querySelector("#pp-container");
 		var newContainer = document.createElement('DIV');
 		var newLabel = document.createElement('DIV');
 		newLabel.id = "pp-div-text"
