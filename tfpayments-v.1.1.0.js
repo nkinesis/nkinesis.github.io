@@ -1,13 +1,12 @@
 var tipo = "";
 var quarto = "";
 var combo = "";
-var onlinePayment = false;
-var link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=";
-var paymentDiv = document.querySelector(".div-success");
 var radioDiv = document.querySelector(".radio-payment-container");
-var input = paymentDiv.querySelector("#itemCode");
-var btnContainer = document.querySelector("#pp-container");
+var paymentDiv = document.querySelector(".div-success");
 var btnLabel = document.querySelector("#pp-div-text");
+var btnContainer = document.querySelector("#pp-container");
+var input = paymentDiv.querySelector("#itemCode");
+var link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=";
 var btn = '<a id="itemCode" target="_blank" href="#"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="Buy Now Button" /></a>'
 var valueArray = ["8KCQJXWUW53W6","VGKYZEDZD8MLA", "3FEVRMJW7ZNPW","SCG25TLD3X44W","L8DKJ77KPVU2Q","LJNV7UAKYW4GG","GZQS24KWK4QBE","G7W5QRJYHNNXQ","XVM5X5Y2SN9TY", "WZVLRHKWMHTJU", "CGYHN9E7JNDT4"];
 init();
@@ -19,22 +18,22 @@ function init() {
 }
 function onSelectCombo(){	
     var quartoDiv = document.querySelector(".div-tipo-quarto");
-	var str = document.querySelector("#data-imersao").value;
-	tipo = str.charAt(str.length-2);
+	var tipoValue = document.querySelector("#data-imersao").value;
+	tipo = tipoValue.charAt(tipoValue.length-2);
 	quarto = document.querySelector("#tipo-alojamento") ? document.querySelector("#tipo-alojamento").value : "";
 	if (tipo === "7" || tipo === "8") {
 	    if (quartoDiv)  {
-            quartoDiv.style.display = "none";
-            quartoDiv.querySelector("#tipo-alojamento").value = "1";
+            	quartoDiv.style.display = "none";
+            	quartoDiv.querySelector("#tipo-alojamento").value = "1";
 	    }
 	quarto = "1";
-    } else {
-        if (quartoDiv && quartoDiv.style.display === "none") {
-            quartoDiv.style.display = "block";
-            quartoDiv.querySelector("#tipo-alojamento").value = "";
-	    quarto = "";
+	} else {
+            if (quartoDiv && quartoDiv.style.display === "none") {
+            	quartoDiv.style.display = "block";
+            	quartoDiv.querySelector("#tipo-alojamento").value = "";
+	    	quarto = "";
+            }
         }
-    }
 	combo = "" + tipo + quarto;
 	 if (tipo != "" && quarto != "") {
 		var newContainer = document.createElement('DIV');
@@ -93,7 +92,6 @@ function onSelectCombo(){
 		case "62":
 			input.setAttribute("href", link + valueArray[8]);
 			break;
-		//below: London immersions
 		case "71":
 			input.setAttribute("href", link + valueArray[9]);
 			break;
