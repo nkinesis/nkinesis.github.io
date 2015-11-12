@@ -5,6 +5,7 @@ var imgClicado = [];
 var clicadoFilho;
 var tempImage1;
 var novoSrc;
+var lastSrc = "";
 var timer;
 var fotoI;
 
@@ -18,7 +19,7 @@ var clicadoPai;
 var figureAtual;
 
 /*Variáveis de teste, remover  depois*/
-var teste, lastSrc = "";
+var teste;
 
 function troca_visao(visivel, invisivel) {
 	document.getElementById(visivel).style.display = 'block';
@@ -156,12 +157,18 @@ function proximaFoto() {
 			navegacaoTeclado();
 			alinhaElementos(); 
 		 } else {
-			document.querySelector('#foto1') ? $('#foto1').remove() : null;
+			var w = 0, h = 0;
+			if(document.querySelector('#foto1')){
+				w = $('#foto1').width();
+				h = $('#foto1').height();
+				$('#foto1').remove();
+			}
 			document.querySelector('.btn-bottom') ? $('.btn-bottom').remove() : null;
 			$('#fundo-foto').append("<div id='loading'><i class='fa fa-refresh fa-spin fa-2x'></i><p>Carregando...</p></div>");	
+			bloqueiaNavegacao();
 			console.log("proximaFoto: loading")
-			$('#fundo-foto').css('width', 448);
-			$('#fundo-foto').css('height', 336);
+			$('#fundo-foto').css('width', w);
+			$('#fundo-foto').css('height', h);
 			alinhaElementos();
 			timer = setInterval(carregaImg,20);
 		 }
@@ -227,12 +234,19 @@ function anteriorFoto() {
 				navegacaoTeclado();
 				alinhaElementos(); 
 			 } else {
+				var w = 0, h = 0;
+				if (document.querySelector('#foto1')){
+					w = $('#foto1').width();
+					h = $('#foto1').height();
+					$('#foto1').remove();
+				}
 				document.querySelector('#foto1') ? $('#foto1').remove() : null;
 				document.querySelector('.btn-bottom') ? $('.btn-bottom').remove() : null;
 				$('#fundo-foto').append("<div id='loading'><i class='fa fa-refresh fa-spin fa-2x'></i><p>Carregando...</p></div>");	
-				console.log("proximaFoto: loading")
-				$('#fundo-foto').css('width', 448);
-				$('#fundo-foto').css('height', 336);
+				bloqueiaNavegacao();
+				console.log("proximaFoto: loading")			
+				$('#fundo-foto').css('width', w);
+				$('#fundo-foto').css('height', h);
 				alinhaElementos();
 				timer = setInterval(carregaImg,20);
 			 }
@@ -290,10 +304,17 @@ function anteriorFoto() {
 			alinhaElementos(); 
 			document.querySelector('#carregando') ? document.querySelector('#carregando').style.borderColor = "transparent" : null; 
 		 } else {
+			var w = 0, h = 0;
+			if(document.querySelector('#foto1')){
+				w = $('#foto1').width();
+				h = $('#foto1').height();
+				$('#foto1').remove();
+			}
 			document.querySelector('#foto1') ? $('#foto1').remove() : null;
-			$('#fundo-foto').append("<div id='loading'><i class='fa fa-refresh fa-spin fa-2x'></i><p>Carregando...</p></div>");			
-			$('#fundo-foto').css('width', 448);
-			$('#fundo-foto').css('height', 336);
+			$('#fundo-foto').append("<div id='loading'><i class='fa fa-refresh fa-spin fa-2x'></i><p>Carregando...</p></div>");	
+			bloqueiaNavegacao();			
+			$('#fundo-foto').css('width', w);
+			$('#fundo-foto').css('height', h);		
 			console.log("carregaImagem: Icone Loading");
 			alinhaElementos();
 			console.log("carregaImagem: Elementos alinhados");
@@ -505,6 +526,12 @@ function navegacaoTeclado(){
 	adicionaListener('body', 'keyup', verificaTecla);
 	adicionaListener('#fechar', 'click', function a(){ $('#fundo').hide()});
 	$('#fundo-foto').css('background', 'rgba(255,255,255, 0)');
+}
+
+function bloqueiaNavegacao(){
+	removeListener('body', 'keyup', verificaTecla);
+	removeListener('#fechar', 'click', function a(){ $('#fundo').hide()});
+	$('#fundo-foto').css('background', 'rgba(255,255,255,.5)');
 }
 
  /*
