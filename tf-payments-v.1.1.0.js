@@ -5,7 +5,7 @@ var radioDiv = document.querySelector(".radio-payment-container");
 var paymentDiv = document.querySelector(".div-success");
 var btnLabel = document.querySelector("#pp-div-text");
 var btnContainer = document.querySelector("#pp-container");
-var input = paymentDiv.querySelector("#itemCode");
+var input = paymentDiv ? paymentDiv.querySelector("#itemCode") : "";
 var link = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=";
 var btn = '<a id="itemCode" target="_blank" href="#"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" alt="Buy Now Button" /></a>'
 var valueArray = ["8KCQJXWUW53W6", "VGKYZEDZD8MLA", "3FEVRMJW7ZNPW", "SCG25TLD3X44W", "L8DKJ77KPVU2Q", "LJNV7UAKYW4GG", "GZQS24KWK4QBE", "G7W5QRJYHNNXQ", "XVM5X5Y2SN9TY", "WZVLRHKWMHTJU", "CGYHN9E7JNDT4"];
