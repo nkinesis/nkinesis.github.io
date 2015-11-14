@@ -11,7 +11,7 @@ var btn = '<a id="itemCode" target="_blank" href="#"><img src="https://www.paypa
 var valueArray = ["8KCQJXWUW53W6", "VGKYZEDZD8MLA", "3FEVRMJW7ZNPW", "SCG25TLD3X44W", "L8DKJ77KPVU2Q", "LJNV7UAKYW4GG", "GZQS24KWK4QBE", "G7W5QRJYHNNXQ", "XVM5X5Y2SN9TY", "WZVLRHKWMHTJU", "CGYHN9E7JNDT4"];
 init();
 function init() {
-	if (){
+	if (document.querySelector('#popup-home')){
 		document.querySelector("#popup-btn-no").setAttribute("onclick", "onCancelPopup()");
 	}
     if (paymentDiv) {
