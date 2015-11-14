@@ -12,7 +12,8 @@ var valueArray = ["8KCQJXWUW53W6", "VGKYZEDZD8MLA", "3FEVRMJW7ZNPW", "SCG25TLD3X
 init();
 function init() {
     if (document.querySelector('#popup-home')){
-	document.querySelector("#popup-btn-no").setAttribute("onclick", "onCancelPopup()");
+	document.querySelector("#popup-btn-no").setAttribute("onclick", "closePopup()");
+	document.querySelector("#popup-btn-yes").setAttribute("onclick", "closePopup()");
     }
     if (paymentDiv) {
         document.querySelector("#radio-payment-1").setAttribute("onclick", "onSelectRadio(this)");
@@ -118,7 +119,7 @@ function onSelectRadio(radio) {
         btnLabel.style.display = "none";
     }
 }
-function onCancelPopup(){
+function closePopup(){
 	document.querySelector('#popup-home').style.display = "none";
 	document.querySelector('#popup-home-bg').style.display = "none";
 }
