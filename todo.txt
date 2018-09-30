@@ -1,0 +1,13 @@
+Sobre
+
+Pesquisa
+- Máximo 100 registros na inclusão
+
+Tabelas
+- MIT license
+- Tabela como csv
+- Mais uma opção de tabela, mostrando os cálculos
+
+
+
+
