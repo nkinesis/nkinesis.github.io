@@ -63,7 +63,7 @@ window.onload = function () {
 }
 
 function updateDropDownMenu() {
-    debugger;
+    
     var ddContent = document.querySelector("#dropdownContent").children;
     var add = [];
     var i = 0;

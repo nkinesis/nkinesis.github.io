@@ -71,7 +71,6 @@
     
     .dropdown:hover .dropdown-content {
         display: block;
-        margin-top:35px;
     }
     
     .dropdown:hover .dropbtn {
@@ -202,5 +201,9 @@
         .menubtn {
             width: 90%;
             overflow: hidden;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+            margin-top:35px;
         }
     }
