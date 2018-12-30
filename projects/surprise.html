@@ -13,10 +13,10 @@
   <script>
     if (window.opener) {
       console.log(window.opener);
-      console.log(window.defaultStatus);
-      console.log(window.frameElement);
-      console.log(window.history);
-      console.log(window.navigator);
+      console.log(window.opener.defaultStatus);
+      console.log(window.opener.frameElement);
+      console.log(window.opener.history);
+      console.log(window.opener.navigator);
       opener.location = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 
     }
