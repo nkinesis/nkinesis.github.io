@@ -1,15 +1,18 @@
 <html>
   <head>
     <title>Example page</title>
-    <style></style>
+    <style>
+      body {
+        font-size: 2em;
+      }
+    </style>
   </head>
   <body>
-    Hello!
+    Nothing to see here. Go back to the previous tab!
   </body>
   <script>
     if (window.opener) {
-      opener.location = 'https://www.google.com';
-      // Just `opener.location.hash = '#hax'` only works on the same origin.
+      opener.location = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
       console.log(window.opener);
     }
   </script>
