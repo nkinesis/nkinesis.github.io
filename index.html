@@ -4,97 +4,63 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="statify">
-    <meta name="keywords" content="Estatística,Tabelas,Distribuição de Frequência">
-    <meta name="author" content="Gabriel Cavalheiro Ullmann">
-
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-WPX6QHD');</script>
-    <!-- End Google Tag Manager -->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126704262-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-126704262-1');
-    </script>
-
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/project.css" rel="stylesheet">
+    <link href="css/statify.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 
-<body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WPX6QHD" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    <div id="page-header">
-        <div class="dropdown">
-            <button class="dropbtn"></button>
-            <div id="dropdownContent" class="dropdown-content">
+<body class="st-main">
+    <div class="st-header">
+        <div class="st-header-dropdown">
+            <button class="st-header-dropdown-btn"></button>
+            <div id="dropdownContent" class="st-header-dropdown-opt-disabled">
+                <a id="itemClear" class="st-header-dropdown-opt-item" href="#">Limpar campos</a>
+                <a id="itemLoadCSV" class="st-header-dropdown-opt-item" href="#">Carrega CSV</a>
             </div>
         </div>
-        <h1 class="menutitle">Título</h1>
-        <img id="back" src="img/arrow-left.png">
+        <div class="st-header-title">Menu Principal</div>
+        <div class="st-header-subtitle">Statify v1.1</div>
+        <img class="st-header-btn-back" src="img/arrow-left.png">
     </div>
-    <h4 class="menudescription">Descricao</h4>
-    <div id="master" style="width:100%;height:500px;border:1px solid transparent">
 
-        <div id="menuInicial" class="screen">
-            <div id="btn-begin" class="menubtn" type="button">
-                <span class="btnLabel1">Iniciar pesquisa</span>
-                <span class="btnLabel2">Informe dados e gere tabelas estatísticas</span>
-            </div>
-            <div id="btn-about" class="menubtn" type="button">
-                <span class="btnLabel1">Sobre</span>
-                <span class="btnLabel2">Informações do app e ajuda</span>
-            </div>
+    <div id="st-screen-wrapper">
+        <div id="mainMenu" class="st-screen">
+            <button id="btnBegin" type="button" class="btn btn-primary">Iniciar pesquisa</button>
+            <button id="btnAbout" type="button" class="btn btn-primary">Sobre</button>
         </div>
 
-        <div id="telaPesquisa" class="screen">
-            <div id="cc1" class="cellcontainer"></div>
-            <div id="btn-aceita-pesquisa" style="display:block;background-image: url(img/plus.png);background-color: white;"></div>
+        <div id="inputScreen" class="st-screen">
+            <form id="fieldGroup" class="st-screen-fieldgroup"></form>
+            <button id="btnOK" type="button" class="btn btn-primary">OK</button>
         </div>
 
-        <div id="menuTabelas" class="screen">
-            <div id="btn-rol" class="menubtn" type="button">
-                <span class="btnLabel1">Tabela Rol</span>
-                <span class="btnLabel2">Sequência de dados brutos ordenada</span>
-            </div>
-            <div id="btn-fsi" class="menubtn" type="button" value="">
-                <span class="btnLabel1">Distribuição de Frequência</span>
-                <span class="btnLabel2">Sem Intervalo de Classe</span>
-            </div>
-            <div id="btn-fci" class="menubtn" type="button" value="" href="/goal/example" onclick="javascript:pageTracker._trackPageview ('example');"
-                target="blank">
-                <span class="btnLabel1">Distribuição de Frequência</span>
-                <span class="btnLabel2">Com Intervalo de Classe</span>
-            </div>
+        <div id="tableMenu" class="st-screen">
+            <button id="btnRaw" type="button" class="btn btn-primary">Tabela Rol</button>
+            <button id="btnNci" type="button" class="btn btn-primary">Distribuição de Frequência CIC</button>
+            <button id="btnWci" type="button" class="btn btn-primary">Distribuição de Frequência SIC</button>
         </div>
 
-        <div id="telaTab" class="screen">
-            <table id="table" class="table table-striped" style="width: 97%;margin: auto;"></table>
+        <div id="tableScreen" class="st-screen">
+            <table id="tableMain" class="table table-striped"></table>
         </div>
 
-        <div id="telaUpload" class="screen" style="padding:10px">
+        <div id="uploadScreen" class="st-screen">
             <input id="fileInput1" type="file">
         </div>
 
-        <div id="telaSobre" class="screen" style="padding:10px">
-            <div>Statify - Gerador de Tabelas Estatísticas</div>
-            <div>By Gabriel C. Ullmann, 2018, All Rights Reserved</div>
-            <div>Contato: bluend@gmail.com</div>
-            <div>Outros projetos: <a target="blank" href="http:\\bluend.xyz">bluend.xyz</a></div>
+        <div id="aboutScreen" class="st-screen">
+            <div class="jumbotron" style="padding:10px">
+                <h1 class="display-4">Statify</h1>
+                <p class="lead">Gerador de Tabelas Estatísticas</p>
+                <hr class="my-4">
+                <p>By Gabriel C. Ullmann, 2019. All Rights Reserved</p>
+                <a class="btn btn-primary btn-lg" href="http:\\bluend.xyz" role="button">Conheça outros projetos</a>
+            </div>
         </div>
- </div>
-
+    </div>
 </body>
 <script type="text/javascript" src="js/dom-to-image.js"></script>
-<script type="text/javascript" src="js/myfunctions.js"></script>
+<script type="text/javascript" src="js/stats.js"></script>
+<script type="text/javascript" src="js/screens.js"></script>
 
 </html>
