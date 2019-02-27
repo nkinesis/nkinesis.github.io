@@ -114,3 +114,15 @@
     right: 10px;
     top: 0;
 }
+
+.st-screen-table-header{
+    text-align:center;font-weight:bold;
+}
+
+.wide {
+    width:300px;
+}
+
+.narrow {
+    width:120px;
+}

@@ -22,7 +22,6 @@ var utils = (function () {
         var next = false;
         for (var ipt of ipts) {
             if (next) {
-                debugger;
                 ipt.focus();
                 next = false;
                 break;
@@ -45,7 +44,7 @@ var utils = (function () {
     function sortNumber(a, b) {
         return a - b;
     }
-    
+
     function countInArray(array, what) {
         var count = 0;
         for (var i = 0; i < array.length; i++) {
@@ -55,226 +54,125 @@ var utils = (function () {
         }
         return count;
     }
-    
+
     return {
         getDate: getDate,
         seekField: seekField,
         enterDefault: enterDefault,
-        sortNumber:sortNumber,
-        countInArray:countInArray
+        sortNumber: sortNumber,
+        countInArray: countInArray
     }
 })();
 
-var measures = (function() {
-    function sturges() {
-        var result = Math.floor(1 + 3.3 * (Math.log(dataset.values.length) / Math.log(10)));
-        //maximum 10 classes
-        if (result > 10) {
-            result = 10;
+var measures = (function () {
+    function sturges(numValues) {
+        if (numValues) {
+            var result = Math.floor(1 + 3.3 * (Math.log(numValues) / Math.log(10)));
+            //maximum 10 classes
+            if (result > 10) {
+                result = 10;
+            }
+            return result;
         }
-        return result;
+        return 0;
     }
-    
-    function avg() {
-    
-        //multiplica
-        for (i = 0; i < freq.length; i++) {
-            var a = freq[i] * xi[i];
-            xifi.push(a);
+
+    function average(listValues) {
+        if (listValues) {
+            var sum = 0;
+            var fl = listValues.length;
+            for (var value of listValues) {
+                sum += parseFloat(value);
+            }
+            return fl > 0 ? (sum / fl).toFixed(2) : 0;
         }
-    
-        //soma
-        for (i = 0; i < freq.length; i++) {
-            b += xifi[i];
-        }
-        var c = b / thetotal;
-    
-        return c;
+        return 0;
     }
-    
-    function mode() {
-        var a = Math.max.apply(null, freq);
-        var b = freq.indexOf(a);
-        var md = xi[b];
-    
-        return md;
-    }
-    
-    function median() {
-        var basePosition = '';
-        var currentFreq = 0;
-        var lastAccFreq = 0;
-        var li = 0;
-        var hi = 0;
-        var locateClass = 0;
-        var mn1 = thetotal / 2;
-    
-        for (i = 0; i < FFi.length; i++) {
-            var a = FFi[i] - mn1;
-    
-            if (a >= 0) {
-                locateClass = FFi[i];
-    
-                for (i = 0; i < auxMd.length; i++) {
-                    var p = auxMd[i].indexOf(locateClass);
-    
-                    if (p != -1) {
-                        basePosition = p;
-    
-                        if (i != 0) {
-                            lastAccFreq = auxMd[i - 1][p];
-                        }
-                        currentFreq = auxMd[i][p + 1];
-                        li = auxMd[i][p + 2];
-                        hi = auxMd[i][p + 3];
-                        break;
-                    } else {
-                        continue;
+
+    function mode(listValues) {
+        var mf = 1;
+        var m = 0;
+        var item;
+        if (listValues) {
+            var vl = listValues.length;
+            for (var i = 0; i < vl; i++) {
+                for (var j = i; j < vl; j++) {
+                    if (listValues[i] == listValues[j])
+                        m++;
+                    if (mf < m) {
+                        mf = m;
+                        item = listValues[i];
                     }
                 }
-                break;
-            } else {
-                continue;
+                m = 0;
             }
+            return item.toFixed(2);
         }
-    
-        theMd = (li + (((thetotal / 2) - lastAccFreq) * 4) / currentFreq);
-        console.log('MEDIANA: ' + li + " / " +
-            'sumfi/2 ' + (sumFFi() / 2) + " / " +
-            'lastAccFreq ' + lastAccFreq + " / " +
-            'hi ' + hi + " / " +
-            'currentFreq ' + currentFreq + " / ");
+        return 0;
     }
-    
-    function quartile(n) {
-        var basePosition = '';
-        var currentFreq = 0;
-        var lastAccFreq = 0;
-        var li = 0;
-        var hi = 0;
-        var locateClass = 0;
-        var qt1 = (n * thetotal) / 4;
-    
-        for (i = 0; i < FFi.length; i++) {
-            var a = FFi[i] - qt1;
-    
-            if (a >= 0) {
-                locateClass = FFi[i];
-    
-                for (i = 0; i < auxMd.length; i++) {
-                    var p = auxMd[i].indexOf(locateClass);
-    
-                    if (p != -1) {
-                        basePosition = p;
-    
-    
-                        if (i != 0) {
-    
-                            if (i != 0) {
-                                lastAccFreq = auxMd[i - 1][p];
-                            } else {
-                                lastAccFreq = 0;
-                            }
-    
-                        }
-    
-                        currentFreq = auxMd[i][1];
-                        li = auxMd[i][2];
-                        hi = (auxMd[i][3]) - (auxMd[i][2]);
-                        break;
-                    } else {
-                        continue;
-                    }
-                }
-                break;
-            } else {
-                continue;
+
+    function median(listValues) {
+        if (listValues) {
+            listValues = listValues.sort(utils.sortNumber);
+            var vl = listValues.length;
+            var middle = 0;
+            if (vl % 2 == 0) { //even
+                middle = (vl / 2);
+                var value1 = listValues[middle];
+                var value2 = listValues[middle + 1];
+                return ((value1 + value2) / 2).toFixed(2);
+            } else { //odd
+                middle = (vl + 1) / 2;
+                return listValues[middle].toFixed(2);
             }
         }
-        theQt = li + (((qt1 - lastAccFreq) * hi) / currentFreq);
-        console.log('QUARTIL: ' + 'li ' + li + " / " +
-            'sumfreq/4 ' + qt1 + " / " +
-            'lastAccFreq ' + lastAccFreq + " / " +
-            'hi ' + hi + " / " +
-            'currentFreq ' + currentFreq + " / ");
-        alert("O quartil " + n + " é igual a " + theQt.toFixed(2));
+        return 0;
     }
-    
-    function percentile(n) {
-        var basePosition = '';
-        var currentFreq = 0;
-        var lastAccFreq = 0;
-        var li = 0;
-        var hi = 0;
-        var locateClass = 0;
-        var pc1 = (n * thetotal) / 100;
-    
-        for (i = 0; i < FFi.length; i++) {
-            var a = FFi[i] - pc1;
-    
-            if (a >= 0) {
-                console.log('a ' + a);
-                locateClass = FFi[i];
-    
-                for (i = 0; i <= auxMd.length; i++) {
-                    var p = auxMd[i].indexOf(locateClass);
-                    console.log('locateClass ' + locateClass);
-                    console.log('auxMd ' + auxMd[i]);
-    
-                    if (p != -1) {
-                        basePosition = p;
-                        console.log('basePosition ' + basePosition);
-    
-                        if (i != 0) {
-    
-                            if (i != 0) {
-                                lastAccFreq = auxMd[i - 1][p];
-                            } else {
-                                lastAccFreq = 0;
-                            }
-    
-                        }
-    
-                        currentFreq = auxMd[i][1];
-                        li = auxMd[i][2];
-                        hi = (auxMd[i][3]) - (auxMd[i][2]);
-                        break;
-                    } else {
-                        continue;
-                    }
-                }
-                break;
-            } else {
-                continue;
-            }
+
+    function quartile(q, listValues) {
+        if (listValues && [1, 2, 3].indexOf(q) > -1) {
+            var n = listValues.length;
+            var k = (Math.floor((q * (n + 1)) / 4)) - 1;
+            return listValues[k] + (((n + 1) / 4) - k) * (listValues[k + 1] - listValues[k]);
         }
-        thePc = li + (((pc1 - lastAccFreq) * hi) / currentFreq);
-        console.log('PERCENTIL: ' + 'li ' + li + " / " +
-            'sumfreq/100 ' + pc1 + " / " +
-            'lastAccFreq ' + lastAccFreq + " / " +
-            'hi ' + hi + " / " +
-            'currentFreq ' + currentFreq + " / ");
-        alert("O percentil " + n + " é igual a " + thePc.toFixed(2));
+        return 0;
+    }
+
+    function getQuartiles(listValues) {
+        var result = [];
+        for (i = 1; i < 4; i++) {
+            result.push(quartile(i, listValues));
+        }
+        return "(" + result.join(", ") + ")";
+    }
+
+    function percentile(p, listValues) {
+        if (listValues && p >= 1 && p <= 100) {
+            var n = listValues.length;
+            return p * ((n + 1) / 100);
+        }
+        return 0;
     }
 
     return {
-        avg:avg,
-        mode:mode,
-        median:median,
-        sturges:sturges,
-        quartile:quartile,
-        percentile:percentile
+        mode: mode,
+        average: average,
+        median: median,
+        sturges: sturges,
+        quartile: quartile,
+        getQuartiles: getQuartiles,
+        percentile: percentile
     }
 })();
 
 var tableStats = (function () {
-    function Category(min, max){
+    function Category(min, max) {
         this.min = min;
         this.max = max;
         this.values = [];
     }
-    
-    function createCategories(qtyCateg, categMin, classAmp){
+
+    function createCategories(qtyCateg, categMin, classAmp) {
         var newCateg;
         var listCateg = [];
         var auxCategMin = categMin;
@@ -285,28 +183,28 @@ var tableStats = (function () {
         }
         return listCateg;
     }
-    
-    function populateCategories(listValues, listCateg){
+
+    function populateCategories(listValues, listCateg) {
         for (var value of listValues) {
             for (var categ of listCateg) {
                 if (value >= categ.min && value < categ.max) {
                     categ.values.push(value);
                 }
-            }    
+            }
         }
     }
-    
-    function calculateXi(qtyCateg, listCateg){
-        var listXi = [];
+
+    function calculateXi(qtyCateg, listCateg) {
+        var list_xi = [];
         for (var categ of listCateg) {
             var result = (categ.min + categ.max) / 2;
             if (result) {
-                listXi.push(result);
+                list_xi.push(result);
             }
         }
-        return listXi;
+        return list_xi;
     }
-    
+
     function calculate_fi(listCateg) {
         var _fi = [];
         var _fiSum = 0;
@@ -319,9 +217,9 @@ var tableStats = (function () {
             sum: _fiSum
         }
     }
-    
+
     function calculate_fri(list_fi, total_fi) {
-       
+
         var _fri = [];
         var _friSum = 0;
         var aux = 0;
@@ -336,7 +234,7 @@ var tableStats = (function () {
             sum: _friSum
         }
     }
-    
+
     function calculateFi(list_fi) {
         var fi = [];
         var fl = 0;
@@ -345,12 +243,12 @@ var tableStats = (function () {
             if (fl == 0) {
                 fi.push(value);
             } else {
-                fi.push(fi[fl-1] + value);
+                fi.push(fi[fl - 1] + value);
             }
         }
         return fi;
     }
-    
+
     function calculateFri(listFi, total_fi) {
         var fri = [];
         var aux = 0;
@@ -360,7 +258,7 @@ var tableStats = (function () {
         }
         return fri;
     }
-    
+
     function calculate_fci(list_fi) {
         var aux = 0;
         var fci = [];
@@ -379,159 +277,190 @@ var tableStats = (function () {
     }
 
     return {
-        createCategories:createCategories,
-        populateCategories:populateCategories,
-        calculateXi:calculateXi,
-        calculate_fi:calculate_fi,
-        calculate_fri:calculate_fri,
-        calculateFi:calculateFi,
-        calculateFri:calculateFri,
-        calculate_fci:calculate_fci
+        createCategories: createCategories,
+        populateCategories: populateCategories,
+        calculateXi: calculateXi,
+        calculate_fi: calculate_fi,
+        calculate_fri: calculate_fri,
+        calculateFi: calculateFi,
+        calculateFri: calculateFri,
+        calculate_fci: calculate_fci
 
     }
 })();
 
 var tableDraw = (function () {
-   
-    function drawHeader(type) {
-        var table = '<tr id="tbhead" style="text-align:center;font-weight:bold;">' +
-            '<th width="300px">Valores</th>';
-        if (type == 2) {
-            table += '<th width="120px">fi</th>';
-        } else if (type == 3) {
-            table += '<th width="120px">fi</th>' +
-                '<th id ="xi" width="120px">xi</th>' +
-                '<th id ="fri" width="120px">fri</th>' +
-                '<th id ="FFi" width="120px">Fi</th>' +
-                ' <th id ="FFri" width="120px">Fri</th>' +
-                '<th id ="FFri" width="120px">fci</th>';
+
+    function createElement(tagname, params) {
+        if (tagname) {
+            var elem = document.createElement(tagname);
+            params && params.id ? elem.id = params.id : null;
+            params && params.classname ? elem.className = params.classname : null;
+            params && params.text ? elem.innerText = params.text : null;
+            return elem;
+        } else {
+            return document.createElement('div');
         }
-        table += '</tr>';
-        return table;
+    }
+
+    function createRow(values) {
+        var td;
+        var tr = createElement("tr");
+        for (var value of values) {
+            td = createElement("td", {text: value});
+            tr.appendChild(td);
+        }
+        return tr;
+    }
+
+    function drawHeader(type) {
+        var thead = createElement("thead");
+        var tr = createElement("tr", {classname: "st-screen-table-header"});
+        if (type == 1) {
+            tr.appendChild(createElement("th", {classname: "wide", text: "Valores"}));
+        } else if (type == 2) {
+            tr.appendChild(createElement("th", {classname: "wide", text: "Valores"}));
+            tr.appendChild(createElement("th", {classname: "wide",text: "fi"}));
+        } else if (type == 3) {
+            tr.appendChild(createElement("th", {classname: "wide", text: "Valores"}));
+            tr.appendChild(createElement("th", {classname: "narrow",text: "fi"}));
+            tr.appendChild(createElement("th", {classname: "narrow",text: "xi"}));
+            tr.appendChild(createElement("th", {classname: "narrow",text: "fri"}));
+            tr.appendChild(createElement("th", {classname: "narrow",text: "Fi"}));
+            tr.appendChild(createElement("th", {classname: "narrow",text: "Fri"}));
+            tr.appendChild(createElement("th", {classname: "narrow",text: "fci"}));
+        } else if (type == 4) {
+            tr.appendChild(createElement("th", {classname: "wide", text: "Medida"}));
+            tr.appendChild(createElement("th", {classname: "wide", text: "Valor"}));
+        } else {
+            tr.appendChild(createElement("th", {classname: "wide", text: "Valores"}));
+        }
+        thead.appendChild(tr);
+        return thead;
     }
 
     function createRawTable() {
-        var table = [];
+        var tbody, tr;
         dataset.create();
-        table.push(drawHeader(1));
+        var table = createElement("table", {classname: "table table-striped"});
+        table.appendChild(drawHeader(1));
+        tbody = createElement("tbody");
         for (var value of dataset.get()) {
-            table.push('<tr>' + '<td>' + value + '</td>' + '</tr>');
+            tr = createElement("tr");
+            tr.appendChild(createElement("td", {text: value}));
+            tbody.appendChild(tr);
         }
-        return table.join('');
+        table.appendChild(tbody);
+        return table;
     }
-    
+
     function createNciTable() {
-        var go = true;
-        //TODO: recreate only if necessary
         dataset.create();
-        var table = [];
-        table.push(drawHeader(2))
+        var newRow = true;
+        var table = createElement("table", {classname: "table table-striped"});
+        var tbody = createElement("tbody");
+        table.appendChild(drawHeader(2))
         var values = dataset.get();
-        var dvl = values.length;
-        for (var i = 0; i < dvl; i++) {
-            var tal = utils.countInArray(values, values[i]);
-            var crt = '<tr>' + '<td>' + values[i] + '</td>' +
-                '<td>' + tal + '</td>' + '</tr>'
-            var nxt = '<tr>' + '<td>' + values[i + 1] + '</td>' +
-                '<td>' + tal + '</td>' + '</tr>'
-    
-            if (go == true) {
-                table.push('<tr>' + '<td class="fi1">' + values[i] + '</td>' +
-                    '<td>' + tal + '</td>' + '</tr>');
-            } else {
-                console.log('Keep going!');
+        var vl = values.length;
+        for (var i = 0; i < vl; i++) {
+            var count = utils.countInArray(values, values[i]);
+            var currentValue = values[i] + "|" + count;
+            var nextValue = values[i + 1] + "|" + count;
+            if (newRow == true) {
+                tbody.appendChild(createRow([values[i], count]));
             }
-    
-            if (crt == nxt) {
-                go = false;
+            if (currentValue === nextValue) {
+                newRow = false;
             } else {
-                go = true;
+                newRow = true;
             }
         }
-        return table.join('');
+        table.appendChild(tbody);
+        return table;
     }
 
     function createWciTable() {
-       //main dataset
-       dataset.create();
-       listValues = dataset.get();
+        //main dataset
+        dataset.create();
+        listValues = dataset.get();
 
-       //arrays
-       var listCateg = [];
-       var listXi = [];
-       var list_fi = [];
-       var total_fi = 0;
-       var list_fri = [];
-       var total_fri = 0;
-       var list_fci = [];
-       var listFi = [];
-       var listFri = [];
-   
-       var vl = listValues.length;
-       var categMin = (Math.min.apply(Math, listValues)); 
-       var categMax = (Math.max.apply(Math, listValues)); 
-       var qtyCateg = Math.floor(1 + 3.3 * (Math.log(vl) / Math.log(10)));
-       var totalAmp = categMax - categMin; 
-       var classAmp = Math.ceil(totalAmp / qtyCateg);
+        //arrays
+        var listCateg = [];
+        var list_xi = [];
+        var list_fi = [];
+        var total_fi = 0;
+        var list_fri = [];
+        var total_fri = 0;
+        var list_fci = [];
+        var listFi = [];
+        var listFri = [];
 
-       //create categories
-       listCateg = tableStats.createCategories(qtyCateg, categMin, classAmp);
-       tableStats.populateCategories(listValues, listCateg);
-       var cl = listCateg.length;
+        var numValues = listValues.length;
+        var categMin = (Math.min.apply(Math, listValues));
+        var categMax = (Math.max.apply(Math, listValues));
+        var qtyCateg = measures.sturges(numValues);
+        var totalAmp = categMax - categMin;
+        var classAmp = qtyCateg ? Math.ceil(totalAmp / qtyCateg) : 0;
 
-       //generate columns
-       listXi = tableStats.calculateXi(qtyCateg, listCateg); //xi
-       result_fi = tableStats.calculate_fi(listCateg); //fi
-       list_fi = result_fi.result;
-       total_fi = result_fi.sum; 
-       result_fri = tableStats.calculate_fri(list_fi, total_fi); //fri
-       list_fri = result_fri.result;
-       total_fri = result_fri.sum;
-       listFi = tableStats.calculateFi(list_fi); //Fi
-       listFri = tableStats.calculateFri(listFi, total_fi); //Fri
-       list_fci = tableStats.calculate_fci(list_fi); //fci
+        //create categories
+        listCateg = tableStats.createCategories(qtyCateg, categMin, classAmp);
+        tableStats.populateCategories(listValues, listCateg);
+        var cl = listCateg.length;
 
-       //draw table
-       var table = [];
-       var auxMd = []; //TODO: use in calculations
-       table.push(drawHeader(3));
-       for (i = 0; i < cl - 1; i++) {
-           table.push('<tr>' + '<td class="textct" style="text-align:center">' + listCateg[i].min + ' |-- ' + listCateg[i].max + '</td>' +
-               '<td class="numeric-td fi">' + listCateg[i].values.length + '</td>' +
-               '<td class="numeric-td xi">' + listXi[i] + '</td>' +
-               '<td class="numeric-td fri">' + list_fri[i] + '</td>' +
-               '<td class="numeric-td Fi">' + listFi[i] + '</td>' +
-               '<td class="numeric-td Fri">' + listFri[i] + '</td>' +
-               '<td class="numeric-td fci">' + list_fci[i] + '</td>' +
-               '</tr>');
-           var s = [listFi[i], listCateg.length, listCateg[i], listCateg[i + 1]];
-           auxMd.push(s);
-       }
-       return table.join('') + '<tr>' + '<td class="tt1" style="text-align:center">' + 'Total' + '</td>' + '<td class="numeric-td total_fi">' + total_fi + '</td>' + '<td>' + " " + '</td>' + '<td class="numeric-td total_fri">' + total_fri + '</td>' + '<td>' + " " + '</td>' + '<td>' + " " + '</td>' + '<td>' + " " + '</td>' + '</tr>';
+        //generate columns
+        list_xi = tableStats.calculateXi(qtyCateg, listCateg); //xi
+        result_fi = tableStats.calculate_fi(listCateg); //fi
+        list_fi = result_fi.result;
+        total_fi = result_fi.sum;
+        result_fri = tableStats.calculate_fri(list_fi, total_fi); //fri
+        list_fri = result_fri.result;
+        total_fri = result_fri.sum;
+        listFi = tableStats.calculateFi(list_fi); //Fi
+        listFri = tableStats.calculateFri(listFi, total_fi); //Fri
+        list_fci = tableStats.calculate_fci(list_fi); //fci
+
+        //draw table
+        var categLabel;
+        var tbody = createElement("tbody");
+        var table = createElement("table", {classname: "table table-striped"});
+        table.appendChild(drawHeader(3));
+        for (i = 0; i < cl - 1; i++) {
+            categLabel = listCateg[i].min + ' |-- ' + listCateg[i].max;
+            tbody.appendChild(createRow([categLabel, listCateg[i].values.length, list_xi[i], list_fri[i], listFi[i], listFri[i], list_fci[i]]));
+        }
+        tbody.appendChild(createRow(["Total", total_fi, "", total_fri, "", "", ""]));
+        table.appendChild(tbody);
+        return table;
     }
 
     function createMeasuresTable() {
-        var colorClass = "x";
-        if (freq.length == 0) {
-            alert('É necessário inserir dados e criar uma tabela antes de gerar os cálculos!');
-        } else {
-            median();
-            var av = avg();
-    
-            document.getElementById('mpos').innerHTML += '<button class="btn ' + colorClass + ' pos" type="button" style="margin: 0 5px 0 10px;" onclick="alert(\'A moda é ' + mode() + '\');">' + 'Moda ' + '<span class="badge">' + mode() + '</span></button>' +
-                '<button class="btn ' + colorClass + ' pos" type="button" style="margin: 0 5px 0 10px;" onclick="alert(\'A média aritmética é ' + av.toFixed(2) + '\');">' + 'Média ' + '<span class="badge">' + av.toFixed(2) + '</span></button>' +
-                '<button class="btn ' + colorClass + ' pos" type="button" style="margin: 0 5px 0 10px;" onclick="alert(\'A mediana é ' + theMd.toFixed(2) + '\');">' + 'Mediana ' + '<span class="badge">' + theMd.toFixed(2) + '</span></button>'
-    
-    
-            document.querySelector('#' + currentContext.id + ' #mpos').style.display = 'block';
+        var values = dataset.get();
+        var measureList = {
+            avg: { label: "Média", value: measures.average(values) },
+            mod: { label: "Moda", value: measures.mode(values) },
+            med: { label: "Mediana", value: measures.median(values) }
         }
+        var table = createElement("table", {classname: "table table-striped"});
+        table.appendChild(drawHeader(4));
+
+        var measureLine;
+        var tbody = createElement("tbody");
+        for (var value of Object.keys(measureList)) {
+            measureLine = measureList[value];
+            tr = createElement("tr", { classname: "st-tr-measure" });
+            tr.appendChild(createElement("td", { text: measureLine.label }));
+            tr.appendChild(createElement("td", { text: measureLine.value }));
+            tbody.appendChild(tr);
+        }
+        table.appendChild(tbody);
+        return table;
     }
 
     return {
-        createRawTable:createRawTable,
-        createWciTable:createWciTable,
-        createNciTable:createNciTable,
-        createMeasuresTable:createMeasuresTable
+        createRawTable: createRawTable,
+        createWciTable: createWciTable,
+        createNciTable: createNciTable,
+        createMeasuresTable: createMeasuresTable
     }
 
 })();
@@ -546,12 +475,12 @@ var stFiles = (function () {
                 temptable.push(fields[i].value)
             }
         }
-    
+
         if (temptable.length == 0) {
             alert("Nenhum dado informado.");
             return;
         }
-    
+
         var tl = temptable.length;
         var arq = "";
         for (var i = 0; i < tl; i++) {
@@ -563,7 +492,7 @@ var stFiles = (function () {
         }
         download("dados.csv", arq);
     }
-    
+
     function createCSV() {
         var values = dataset.get();
         var tl = values.length;
@@ -577,7 +506,7 @@ var stFiles = (function () {
         }
         download("dados.csv", arq);
     }
-      
+
     function download(filename, text) {
         var element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
@@ -587,7 +516,7 @@ var stFiles = (function () {
         element.click();
         document.body.removeChild(element);
     }
-    
+
     function downloadImg(filename, base64) {
         var element = document.createElement('a');
         element.setAttribute('href', base64);
@@ -597,7 +526,7 @@ var stFiles = (function () {
         element.click();
         document.body.removeChild(element);
     }
-    
+
     function savePNG() {
         domtoimage.toPng(document.querySelector("#telaTab"))
             .then(function (dataUrl) {
@@ -607,7 +536,7 @@ var stFiles = (function () {
                 console.error('Erro', error);
             });
     }
-    
+
     function saveJPG() {
         domtoimage.toJpeg(document.querySelector("#telaTab"))
             .then(function (dataUrl) {
@@ -617,7 +546,7 @@ var stFiles = (function () {
                 console.error('Erro', error);
             });
     }
-    
+
     function saveSVG() {
         domtoimage.toSvg(document.querySelector("#telaTab"))
             .then(function (dataUrl) {
@@ -627,7 +556,7 @@ var stFiles = (function () {
                 console.error('Erro', error);
             });
     }
-    
+
     function readSingleFile(evt) {
         var f = evt.target.files[0];
         if (f) {
@@ -637,7 +566,7 @@ var stFiles = (function () {
             for (var i = 0; i < fcl; i++) {
                 fields[i].parentNode.removeChild(fields[i]);
             }
-    
+
             var r = new FileReader();
             r.onload = function (e) {
                 var contents = e.target.result;
@@ -664,13 +593,13 @@ var stFiles = (function () {
     }
 
     return {
-        createCSVFromFields:createCSVFromFields,
-        createCSV:createCSV,
-        download:download,
-        downloadImg:downloadImg,
-        savePNG:savePNG,
-        saveJPG:saveJPG,
-        saveSVG:saveSVG,
-        readSingleFile:readSingleFile,
+        createCSVFromFields: createCSVFromFields,
+        createCSV: createCSV,
+        download: download,
+        downloadImg: downloadImg,
+        savePNG: savePNG,
+        saveJPG: saveJPG,
+        saveSVG: saveSVG,
+        readSingleFile: readSingleFile,
     }
 })();    

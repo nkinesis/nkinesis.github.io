@@ -182,7 +182,7 @@ var mainMenu = (function () {
 })();
 
 var uploadScreen = (function () {
-    var fileInput =document.querySelector('#fileInput1')
+    var fileInput = document.querySelector('#fileInput1')
     fileInput.addEventListener('change', stFiles.readSingleFile);
 
     function show(){
@@ -233,6 +233,7 @@ var inputScreen = (function () {
 
     function createField() {
         var field = document.createElement("INPUT")
+        field.min = "0";
         field.type = "number";
         field.className = "st-screen-field";
         field.addEventListener("keypress", createFieldOnKeyPress);
@@ -265,30 +266,50 @@ var inputScreen = (function () {
 })();
 
 var tableMenu = (function () {
+    var mainContent = document.querySelector('#mainContent');
     var btnRaw = document.querySelector('#btnRaw');
     var btnNci = document.querySelector('#btnNci');
     var btnWci = document.querySelector('#btnWci');
+    var btnMsr = document.querySelector('#btnMsr');
 
     btnRaw.addEventListener('click', createRaw);
     btnNci.addEventListener('click', createNcr);
     btnWci.addEventListener('click', createWcr);
+    btnMsr.addEventListener('click', createMsr);
+
+    function clearScreen(){
+        var elements = mainContent.children;
+        for (element of elements) {
+            element.parentNode.removeChild(element);
+        }
+    }
 
     function createRaw() {
+        clearScreen();
         switcher.navigate('tableScreen');
         var table = tableDraw.createRawTable();
-        document.querySelector('#tableMain').innerHTML = table;
+        document.querySelector('#mainContent').appendChild(table);
     }
 
     function createNcr() {
+        clearScreen();
         switcher.navigate('tableScreen');
         var table = tableDraw.createNciTable();
-        document.querySelector('#tableMain').innerHTML = table;
+        document.querySelector('#mainContent').appendChild(table);
     }
 
     function createWcr() {
+        clearScreen();
         switcher.navigate('tableScreen');
         var table = tableDraw.createWciTable();
-        document.querySelector('#tableMain').innerHTML = table;
+        document.querySelector('#mainContent').appendChild(table);
+    }
+
+    function createMsr() {
+        clearScreen();
+        switcher.navigate('tableScreen');
+        var table = tableDraw.createMeasuresTable();
+        document.querySelector('#mainContent').appendChild(table);
     }
 
 })();

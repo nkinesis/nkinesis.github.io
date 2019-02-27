@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="statify icon" href="favicon.ico" />
     <link href="css/statify.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <title>Statify</title>
 </head>
 
 <body class="st-main">
@@ -38,10 +40,12 @@
             <button id="btnRaw" type="button" class="btn btn-primary">Tabela Rol</button>
             <button id="btnNci" type="button" class="btn btn-primary">Distribuição de Frequência CIC</button>
             <button id="btnWci" type="button" class="btn btn-primary">Distribuição de Frequência SIC</button>
+            <button id="btnMsr" type="button" class="btn btn-primary">Medidas de Posição</button>
         </div>
 
         <div id="tableScreen" class="st-screen">
-            <table id="tableMain" class="table table-striped"></table>
+            <div id="mainContent"></div>
+            <div id="secondaryContent"></div>
         </div>
 
         <div id="uploadScreen" class="st-screen">
