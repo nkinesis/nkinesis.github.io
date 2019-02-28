@@ -4,16 +4,19 @@ var switcher = (function () {
     var btnBack = document.querySelector('.st-header-btn-back');
     var title = document.querySelector('.st-header-title');
     var subtitle = document.querySelector('.st-header-subtitle');
-    var dropdownContent = document.querySelector('#dropdownContent');
-
+    var itemClear = document.querySelector('#itemClear');
+    var itemLoadCSV = document.querySelector('#itemLoadCSV');
+    var itemDownloadCSV = document.querySelector('#itemDownloadCSV');
+    var itemDownloadJPG = document.querySelector('#itemDownloadJPG');
+    var itemDownloadPNG = document.querySelector('#itemDownloadPNG');
 
     btnBack.addEventListener('click', back);
 
     function init() {
         currentContext = "mainMenu";
         for (let screen of screens) {
-            if (screen.id !== "mainMenu") {
-                screen.style.display = "none";
+            if (screen.id == "mainMenu") {
+                screen.className = "st-screen";
             }
         }
     }
@@ -21,13 +24,13 @@ var switcher = (function () {
     function navigate(screenName) {
         for (let screen of screens) {
             if (screen.id === screenName) {
-                screen.style.display = "block";
+                screen.className = "st-screen";
                 currentContext = screenName;
                 setDropdownMenu(screenName);
-                setCaption(screenName);
+                updateCaptions(screenName);
                 setInit(screenName);
             } else {
-                screen.style.display = "none";
+                screen.className = "st-screen hidden";
             }
         }
     }
@@ -46,7 +49,9 @@ var switcher = (function () {
             case "inputScreen":
             case "uploadScreen":
                 if (confirm('Deseja voltar ao menu principal? Alterações não salvas serão perdidas.')) {
-                    //resetGlobals(true);
+                    dataset.setDemo(false); //back to input mode
+                    dataset.clear(); //clear dataset
+                    uploadScreen.clear(); //unload files
                     navigate("mainMenu");
                 }
                 break;
@@ -56,31 +61,34 @@ var switcher = (function () {
         }
     }
 
-    function setCaption(screenName) {
+    function setSubtitle(text){
+        subtitle.innerText = text;
+    }
+
+    function updateCaptions(screenName) {
         switch (screenName) {
             case "mainMenu":
                 title.innerText = "Menu Principal";
-                subtitle.innerText = "Statify v1.1";
+                setSubtitle("Statify v1.1");
                 break;
             case "aboutScreen":
                 title.innerText = "Sobre";
-                subtitle.innerText = "Statify v1.1";
+                setSubtitle("Statify v1.1");
                 break;
             case "tableScreen":
                 title.innerText = "Tabela";
-                subtitle.innerText = "";
                 break;
             case "tableMenu":
                 title.innerText = "Tabela";
-                subtitle.innerText = "Selecione o tipo de tabela desejado";
+                setSubtitle("Selecione o tipo de tabela desejado");
                 break;
             case "inputScreen":
                 title.innerText = "Entrada";
-                subtitle.innerText = "Insira os dados da sua pesquisa";
+                setSubtitle("Insira os dados da sua pesquisa");
                 break;
             case "uploadScreen":
                 title.innerText = "Upload";
-                subtitle.innerText = "Selecione um arquivo";
+                setSubtitle("Selecione um arquivo CSV");
                 break;
             default:
                 title.innerText = "";
@@ -100,55 +108,104 @@ var switcher = (function () {
         }
     }
 
+    function setItemVisible(visible, menuItem){
+        if (menuItem) {
+            if (visible){
+                menuItem.className = "st-header-dropdown-opt-item";
+            } else {
+                menuItem.className = "st-header-dropdown-opt-item hidden";
+            }
+        }
+    }
+
     function setDropdownMenu(screenName) {
         switch (screenName) {
+            case "mainMenu":
+                btnBack.className = 'st-header-btn-back hidden';
+                break;
             case "inputScreen":
-                dropdownContent.className = "st-header-dropdown-opt";
+                setItemVisible(true, itemClear);
+                setItemVisible(true, itemLoadCSV);
+                setItemVisible(false, itemDownloadPNG);
+                setItemVisible(false, itemDownloadJPG);
+                setItemVisible(false, itemDownloadCSV);
+                btnBack.className = 'st-header-btn-back';
+                break;
+            case "tableScreen":
+                setItemVisible(false, itemClear);
+                setItemVisible(false, itemLoadCSV);
+                setItemVisible(true, itemDownloadPNG);
+                setItemVisible(true, itemDownloadJPG);
+                setItemVisible(true, itemDownloadCSV);
+                btnBack.className = 'st-header-btn-back';
                 break;
             default:
-                dropdownContent.className = "st-header-dropdown-opt-disabled";
+                setItemVisible(false, itemClear);
+                setItemVisible(false, itemLoadCSV);
+                setItemVisible(false, itemDownloadPNG);
+                setItemVisible(false, itemDownloadJPG);
+                setItemVisible(false, itemDownloadCSV);
+                btnBack.className = 'st-header-btn-back';
                 break;
         }
     }
 
     return {
         init: init,
-        navigate: navigate
+        navigate: navigate,
+        setSubtitle:setSubtitle,
+        itemClear:itemClear,
+        itemLoadCSV:itemLoadCSV,
+        itemDownloadCSV:itemDownloadCSV,
+        itemDownloadPNG:itemDownloadPNG,
+        itemDownloadJPG:itemDownloadJPG
     }
 })();
 
 var dataset = (function () {
-    var debug = true;
+    var demo = false;
     var data = [];
     var classRange = [];
     var testValues = [18, 18, 19, 19, 20, 21, 21, 21, 22, 22, 22, 22, 22, 22, 23, 23, 23, 23, 23, 23, 23, 24, 24, 24, 24, 24, 24, 24, 24, 24, 25, 25, 25, 25, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 29, 29, 29, 29, 29, 29, 29, 29, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 31, 31, 31, 31, 31, 31, 31, 32, 32, 32, 32, 32, 33, 33, 33, 34, 34, 34, 34, 34, 35, 36, 36, 36, 37, 37, 37, 37, 37, 38, 38, 38, 38, 38, 39, 39, 39, 40, 40, 40, 40, 40, 40, 41, 41, 41, 42, 42, 42, 42, 43, 43, 43, 44, 44, 44, 45, 45, 45, 46, 46, 47, 47, 47, 47, 48, 48, 48, 48, 48, 48, 49, 49, 50, 50, 50, 51, 51, 52, 52, 53, 53, 53, 53, 56, 61, 62, 63, 63];
 
     function create(overwrite) {
-        if (debug) {
+        if (demo) {
             data = testValues;
         } else {
             var fields = document.querySelectorAll('#fieldGroup .st-screen-field');
             if (overwrite) {
-                data = [];
+                clear();
             } else if (data.length > 0) {
                 return;
             }
             for (var field of fields) {
                 if (field.value) {
-                    data.push(parseInt(field.value));
+                    data.push(parseFloat(field.value));
                 }
             }
             data = data.sort(utils.sortNumber);
-            console.log(data);
         }
     }
 
-    function randomize(n) {
-        data = [];
+    function setRandom(n) {
+        clear();
         n > 1000 ? n = 1000 : null;
         for (var i = 0; i < n; i++) {
             data.push(Math.floor((Math.random() * 100) + 1));
         }
+    }
+
+    function setDemo(value){
+        if (value) {
+            demo = true;
+        } else {
+            demo = false;
+        }
+    }
+
+    function clear(){
+        data = [];
+        classRange = []; 
     }
 
     function get() {
@@ -157,8 +214,10 @@ var dataset = (function () {
 
     return {
         get: get,
+        clear:clear,
         create: create,
-        randomize: randomize,
+        setDemo, setDemo,
+        setRandom: setRandom,
         classRange: classRange
     }
 
@@ -166,10 +225,12 @@ var dataset = (function () {
 
 var mainMenu = (function () {
     var btnBegin = document.querySelector('#btnBegin');
+    var btnDemo = document.querySelector('#btnDemo');
     var btnAbout = document.querySelector('#btnAbout');
 
     btnBegin.addEventListener('click', begin);
     btnAbout.addEventListener('click', about);
+    btnDemo.addEventListener('click', demo);
 
     function begin() {
         switcher.navigate("inputScreen");
@@ -179,29 +240,36 @@ var mainMenu = (function () {
         switcher.navigate("aboutScreen");
     }
 
+    function demo() {
+        dataset.setDemo(true);
+        switcher.navigate("tableMenu");
+    }
+
 })();
 
 var uploadScreen = (function () {
-    var fileInput = document.querySelector('#fileInput1')
-    fileInput.addEventListener('change', stFiles.readSingleFile);
+    var fileInput = document.querySelector('#fileInput1');
+    fileInput.addEventListener('change', files.readSingleFile);
+
+    function clear(){
+        fileInput.value = "";
+    }
 
     function show(){
         switcher.navigate("uploadScreen");
     }
  
     return {
-        show:show
+        show:show,
+        clear:clear
     }
  })();
 
 var inputScreen = (function () {
     var fieldGroup = document.querySelector('#fieldGroup');
     var btnOK = document.querySelector('#btnOK');
-    var itemClear = document.querySelector('#itemClear');
-    var itemLoadCSV = document.querySelector('#itemLoadCSV');
-
-    itemClear.addEventListener('click', removeFields);
-    itemLoadCSV.addEventListener('click', uploadScreen.show);
+    switcher.itemClear.addEventListener('click', removeFields);
+    switcher.itemLoadCSV.addEventListener('click', uploadScreen.show);
     btnOK.addEventListener('click', processInput)
 
     function init() {
@@ -211,14 +279,14 @@ var inputScreen = (function () {
 
     function processInput() {
         var values = document.querySelectorAll('.st-screen-fieldgroup .st-screen-field');
-        if (values && values.length > 0) {
+        if (values && values.length >= 5) {
             dataset.create();
             let table = dataset.get();
             if (table && table.length > 0) {
                 switcher.navigate('tableMenu');
             }
         } else {
-            alert("Nenhum valor informado!");
+            alert("Informe no mínimo 5 valores!");
         }
     }
 
@@ -257,7 +325,6 @@ var inputScreen = (function () {
         }
     }
 
-
     return {
         init: init,
         createField:createField
@@ -289,6 +356,7 @@ var tableMenu = (function () {
         switcher.navigate('tableScreen');
         var table = tableDraw.createRawTable();
         document.querySelector('#mainContent').appendChild(table);
+        switcher.setSubtitle("Tabela Rol");
     }
 
     function createNcr() {
@@ -296,6 +364,7 @@ var tableMenu = (function () {
         switcher.navigate('tableScreen');
         var table = tableDraw.createNciTable();
         document.querySelector('#mainContent').appendChild(table);
+        switcher.setSubtitle("Tabela de Distribuição de Frequência sem Intervalos de Classe");
     }
 
     function createWcr() {
@@ -303,6 +372,7 @@ var tableMenu = (function () {
         switcher.navigate('tableScreen');
         var table = tableDraw.createWciTable();
         document.querySelector('#mainContent').appendChild(table);
+        switcher.setSubtitle("Tabela de Distribuição de Frequência com Intervalos de Classe");
     }
 
     function createMsr() {
@@ -310,11 +380,29 @@ var tableMenu = (function () {
         switcher.navigate('tableScreen');
         var table = tableDraw.createMeasuresTable();
         document.querySelector('#mainContent').appendChild(table);
+        switcher.setSubtitle("Medidas de Posição, Quartis e Percentis");
     }
 
 })();
 
 var tableScreen = (function () {
+    var mainContent = document.querySelector('#tableScreen #mainContent');
+    switcher.itemDownloadCSV.addEventListener('click', downloadCSV);
+    switcher.itemDownloadPNG.addEventListener('click', itemDownloadPNG);
+    switcher.itemDownloadJPG.addEventListener('click', itemDownloadJPG);
+
+    function downloadCSV(){
+        files.saveCSV(dataset.get());
+    }
+
+    function itemDownloadPNG(){
+        files.savePNG(mainContent);
+    }
+
+    function itemDownloadJPG(){
+        files.saveJPG(mainContent);
+    }
+
 })();
 
 var aboutScreen = (function () {

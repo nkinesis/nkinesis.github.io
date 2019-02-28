@@ -1,11 +1,19 @@
 Todo:
-- Mostrar todos os quartis e percentis
-- Permitir salvar as tabelas geradas como CSV ou imagem
+v Mostrar todos os quartis e percentis
+v Permitir salvar as tabelas geradas como CSV ou imagem
+v Evitar "piscada" da UI no carregamento
+v Menu dropwdown deve funcionar no mobile
+v Cada tipo de tabela deve ter seu label (subtítulo)
+v Ter um modo demo/testes e incluir CSVs de exemplo no github
+v Remover arquivo da tela de upload após uso
+v Acertar formatação das tabelas
 - Fazer testes amplos (pegar exemplos prontos, antigos e novos)
-- Ter um modo demo/testes- Incluir CSVs de exemplo no github
 - Incluir MIT license (dom-to-image)
 
+
 Testes
+http://www.portalaction.com.br/estatistica-basica/16-distribuicao-de-frequencias
+http://www.portalaction.com.br/estatistica-basica/21-medidas-de-posicao
 http://www.portalaction.com.br/estatistica-basica/23-quartis
 
 

@@ -17,6 +17,26 @@ var utils = (function () {
         return yyyy + '-' + mm + '-' + dd;
     }
 
+    function getDateTime() {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+        var hh = today.getHours();
+        var min = today.getMinutes();
+        var sec = today.getSeconds();
+
+        if (dd < 10) {
+            dd = "0" + dd
+        }
+
+        if (mm < 10) {
+            mm = "0" + mm
+        }
+
+        return yyyy + '-' + mm + '-' + dd + '-' + hh + '' + min + '' + sec;
+    }
+
     function seekField(e) {
         var ipts = document.querySelectorAll("input");
         var next = false;
@@ -60,7 +80,8 @@ var utils = (function () {
         seekField: seekField,
         enterDefault: enterDefault,
         sortNumber: sortNumber,
-        countInArray: countInArray
+        countInArray: countInArray,
+        getDateTime:getDateTime
     }
 })();
 
@@ -92,7 +113,7 @@ var measures = (function () {
     function mode(listValues) {
         var mf = 1;
         var m = 0;
-        var item;
+        var item = 0;
         if (listValues) {
             var vl = listValues.length;
             for (var i = 0; i < vl; i++) {
@@ -106,7 +127,7 @@ var measures = (function () {
                 }
                 m = 0;
             }
-            return item.toFixed(2);
+            return parseFloat(item).toFixed(2);
         }
         return 0;
     }
@@ -117,12 +138,12 @@ var measures = (function () {
             var vl = listValues.length;
             var middle = 0;
             if (vl % 2 == 0) { //even
-                middle = (vl / 2);
+                middle = (vl / 2) - 1;
                 var value1 = listValues[middle];
                 var value2 = listValues[middle + 1];
                 return ((value1 + value2) / 2).toFixed(2);
             } else { //odd
-                middle = (vl + 1) / 2;
+                middle = ((vl + 1) / 2) - 1;
                 return listValues[middle].toFixed(2);
             }
         }
@@ -132,8 +153,9 @@ var measures = (function () {
     function quartile(q, listValues) {
         if (listValues && [1, 2, 3].indexOf(q) > -1) {
             var n = listValues.length;
-            var k = (Math.floor((q * (n + 1)) / 4)) - 1;
-            var result = listValues[k] + (((n + 1) / 4) - k) * (listValues[k + 1] - listValues[k]);
+            var k = (Math.floor((q * (n + 1)) / 4));
+            var ki = k - 1; //used for indexing only
+            var result = listValues[ki] + (((q * (n + 1)) / 4) - k) * (listValues[ki + 1] - listValues[ki]);
             return result.toFixed(2);
         }
         return 0;
@@ -296,17 +318,28 @@ var tableDraw = (function () {
         }
     }
 
-    function createRow(values) {
+    function createRow(values, align) {
         var td;
         var tr = createElement("tr");
+        var alignClass = "st-screen-table-cell";
+        if (align == "right") {
+            alignClass = "st-screen-table-numcell";
+        } else if (align == "center") {
+            alignClass = "st-screen-table-titlecell";
+        } else if (align == "centerFirst") {
+            alignClass = "st-screen-table-titlecell";
+        }
         for (var value of values) {
-            td = createElement("td", {text: value});
+            td = createElement("td", {classname: alignClass, text: value});
             tr.appendChild(td);
+            if (align == "centerfirst") {
+                alignClass = "st-screen-table-numcell";
+            }
         }
         return tr;
     }
 
-    function drawHeader(type) {
+    function drawHeader(type, title) {
         var thead = createElement("thead");
         var tr = createElement("tr", {classname: "st-screen-table-header"});
         if (type == 1) {
@@ -323,7 +356,7 @@ var tableDraw = (function () {
             tr.appendChild(createElement("th", {classname: "narrow",text: "Fri"}));
             tr.appendChild(createElement("th", {classname: "narrow",text: "fci"}));
         } else if (type == 4) {
-            tr.appendChild(createElement("th", {classname: "wide", text: "Medida"}));
+            tr.appendChild(createElement("th", {classname: "wide", text: title}));
             tr.appendChild(createElement("th", {classname: "wide", text: "Valor"}));
         } else {
             tr.appendChild(createElement("th", {classname: "wide", text: "Valores"}));
@@ -335,12 +368,12 @@ var tableDraw = (function () {
     function createRawTable() {
         var tbody, tr;
         dataset.create();
-        var table = createElement("table", {classname: "table table-striped"});
+        var table = createElement("table", {id: "tbRaw", classname: "table table-striped"});
         table.appendChild(drawHeader(1));
         tbody = createElement("tbody");
         for (var value of dataset.get()) {
             tr = createElement("tr");
-            tr.appendChild(createElement("td", {text: value}));
+            tr.appendChild(createElement("td", {classname: "st-screen-table-numcell", text: value}));
             tbody.appendChild(tr);
         }
         table.appendChild(tbody);
@@ -350,7 +383,7 @@ var tableDraw = (function () {
     function createNciTable() {
         dataset.create();
         var newRow = true;
-        var table = createElement("table", {classname: "table table-striped"});
+        var table = createElement("table", {id: "tbNci",classname: "table table-striped"});
         var tbody = createElement("tbody");
         table.appendChild(drawHeader(2))
         var values = dataset.get();
@@ -360,7 +393,7 @@ var tableDraw = (function () {
             var currentValue = values[i] + "|" + count;
             var nextValue = values[i + 1] + "|" + count;
             if (newRow == true) {
-                tbody.appendChild(createRow([values[i], count]));
+                tbody.appendChild(createRow([values[i], count], "right"));
             }
             if (currentValue === nextValue) {
                 newRow = false;
@@ -415,26 +448,28 @@ var tableDraw = (function () {
         //draw table
         var categLabel;
         var tbody = createElement("tbody");
-        var table = createElement("table", {classname: "table table-striped"});
+        var table = createElement("table", {id: "tbWci", classname: "table table-striped"});
         table.appendChild(drawHeader(3));
         for (i = 0; i < cl - 1; i++) {
             categLabel = listCateg[i].min + ' |-- ' + listCateg[i].max;
-            tbody.appendChild(createRow([categLabel, listCateg[i].values.length, list_xi[i], list_fri[i], listFi[i], listFri[i], list_fci[i]]));
+            tbody.appendChild(createRow([categLabel, listCateg[i].values.length, list_xi[i], list_fri[i], listFi[i], listFri[i], list_fci[i]], "centerFirst"));
         }
-        tbody.appendChild(createRow(["Total", total_fi, "", total_fri, "", "", ""]));
+        tbody.appendChild(createRow(["Total", total_fi, "", total_fri, "", "", ""], "centerFirst"));
         table.appendChild(tbody);
         return table;
     }
 
     function createMeasuresTable() {
+        dataset.create();
         var values = dataset.get();
+        var mode = measures.mode(values);
         var measureList = {
             avg: { label: "Média", value: measures.average(values) },
-            mod: { label: "Moda", value: measures.mode(values) },
+            mod: { label: "Moda", value: mode > 0 ? mode : "Amodal" },
             med: { label: "Mediana", value: measures.median(values) }
         }
-        var msrTable = createElement("table", {classname: "table table-striped"});
-        msrTable.appendChild(drawHeader(4));
+        var msrTable = createElement("table", {id: "tbMsr", classname: "table table-striped"});
+        msrTable.appendChild(drawHeader(4, "Medida"));
 
         var measureLine;
         var wrapper = createElement('div');
@@ -442,8 +477,8 @@ var tableDraw = (function () {
         for (var value of Object.keys(measureList)) {
             measureLine = measureList[value];
             tr = createElement("tr", { classname: "st-tr-measure" });
-            tr.appendChild(createElement("td", { text: measureLine.label }));
-            tr.appendChild(createElement("td", { text: measureLine.value }));
+            tr.appendChild(createElement("td", { classname: "st-screen-table-titlecell", text: measureLine.label }));
+            tr.appendChild(createElement("td", { classname: "st-screen-table-numcell", text: measureLine.value }));
             tbody.appendChild(tr);
         }
         msrTable.appendChild(tbody);
@@ -455,20 +490,20 @@ var tableDraw = (function () {
 
     function createQuartPercTable(){
         var listValues = dataset.get();
-        var tableQrt = createElement("table", {classname: "table table-striped"});
-        tableQrt.appendChild(drawHeader(4));
+        var tableQrt = createElement("table", {id: "tbQuart", classname: "table table-striped"});
+        tableQrt.appendChild(drawHeader(4, "Quartil"));
         var tbody = createElement("tbody");
         var tr;
         for (i = 1; i < 4; i++) {
             tr = createElement("tr", { classname: "st-tr-measure" });
-            tr.appendChild(createElement("td", { text: i }));
-            tr.appendChild(createElement("td", { text: measures.quartile(i, listValues) }));
+            tr.appendChild(createElement("td", { classname: "st-screen-table-titlecell", text: i }));
+            tr.appendChild(createElement("td", { classname: "st-screen-table-numcell", text: measures.quartile(i, listValues) }));
             tbody.appendChild(tr);
         }
         tableQrt.appendChild(tbody);
 
-        var tablePerc = createElement("table", {classname: "table table-striped"});
-        tablePerc.appendChild(drawHeader(4));
+        var tablePerc = createElement("table", {id: "tbPerc", classname: "table table-striped"});
+        tablePerc.appendChild(drawHeader(4, "Percentil"));
         tbody = createElement("tbody");
         var step = 9;
         for (i = 1; i < 101; i+=step) {
@@ -476,8 +511,8 @@ var tableDraw = (function () {
                 step = 10;
             }
             tr = createElement("tr", { classname: "st-tr-measure" });
-            tr.appendChild(createElement("td", { text: i }));
-            tr.appendChild(createElement("td", { text: measures.percentile(i, listValues) }));
+            tr.appendChild(createElement("td", { classname: "st-screen-table-titlecell", text: i }));
+            tr.appendChild(createElement("td", { classname: "st-screen-table-numcell", text: measures.percentile(i, listValues) }));
             tbody.appendChild(tr);
         }
         tablePerc.appendChild(tbody);
@@ -496,46 +531,23 @@ var tableDraw = (function () {
 
 })();
 
-var stFiles = (function () {
-    function createCSVFromFields() {
-        var temptable = [];
-        var fields = document.querySelectorAll(".cellcontainer .sfield");
-        var fcl = fields.length;
-        for (var i = 0; i < fcl; i++) {
-            if (fields[i] && fields[i].value !== "") {
-                temptable.push(fields[i].value)
-            }
-        }
+var files = (function () {
 
-        if (temptable.length == 0) {
+    function saveCSV(listValues) {
+        if (!listValues || listValues.length == 0) {
             alert("Nenhum dado informado.");
             return;
-        }
-
-        var tl = temptable.length;
-        var arq = "";
-        for (var i = 0; i < tl; i++) {
-            if (arq.length == 0) {
-                arq += temptable[i];
-            } else {
-                arq += "," + temptable[i];
+        } else {
+            var arq = "";
+            for (var value of listValues) {
+                if (arq.length == 0) {
+                    arq += value;
+                } else {
+                    arq += "," + value;
+                }
             }
+            download("data" + utils.getDateTime() + ".csv", arq);
         }
-        download("dados.csv", arq);
-    }
-
-    function createCSV() {
-        var values = dataset.get();
-        var tl = values.length;
-        var arq = "";
-        for (var i = 0; i < tl; i++) {
-            if (arq.length == 0) {
-                arq += values[i];
-            } else {
-                arq += "," + values[i];
-            }
-        }
-        download("dados.csv", arq);
     }
 
     function download(filename, text) {
@@ -558,76 +570,71 @@ var stFiles = (function () {
         document.body.removeChild(element);
     }
 
-    function savePNG() {
-        domtoimage.toPng(document.querySelector("#telaTab"))
+    function savePNG(element) {
+        domtoimage.toPng(element)
             .then(function (dataUrl) {
-                downloadImg("imagem", dataUrl);
+                downloadImg("img" + utils.getDateTime(), dataUrl);
             })
             .catch(function (error) {
                 console.error('Erro', error);
             });
     }
 
-    function saveJPG() {
-        domtoimage.toJpeg(document.querySelector("#telaTab"))
+    function saveJPG(element) {
+        domtoimage.toJpeg(element)
             .then(function (dataUrl) {
-                downloadImg("imagem", dataUrl);
+                downloadImg("img" + utils.getDateTime(), dataUrl);
             })
             .catch(function (error) {
                 console.error('Erro', error);
             });
     }
 
-    function saveSVG() {
-        domtoimage.toSvg(document.querySelector("#telaTab"))
+    function saveSVG(element) {
+        domtoimage.toSvg(element)
             .then(function (dataUrl) {
-                downloadImg("imagem", dataUrl);
+                downloadImg("img" + utils.getDateTime(), dataUrl);
             })
             .catch(function (error) {
                 console.error('Erro', error);
             });
     }
 
-    function readSingleFile(evt) {
-        var f = evt.target.files[0];
-        if (f) {
+    function readSingleFile(event) {
+
+        var listFiles = event.target.files[0];
+        if (listFiles) {
             switcher.navigate("inputScreen");
             var fields = document.querySelectorAll(".st-screen-fieldgroup .st-screen-field");
-            var fcl = fields.length;
-            for (var i = 0; i < fcl; i++) {
-                fields[i].parentNode.removeChild(fields[i]);
+            for (var field of fields) {
+                field.parentNode.removeChild(field);
             }
-
-            var r = new FileReader();
-            r.onload = function (e) {
+            var fr = new FileReader();
+            fr.onload = function (e) {
                 var contents = e.target.result;
                 var lines = contents.split("\n");
-                var output = [];
                 var parts = [];
-                var fd = null;
-                for (var i = 0; i < lines.length; i++) {
-                    parts = lines[i].split(",");
-                    for (var j = 0; j < parts.length; j++) {
-                        if (parts[j].trim()) {
-                            fd = inputScreen.createField();
-                            fd.value = parts[j];
-                            document.querySelector(".st-screen-fieldgroup").appendChild(fd);
+                var field = null;
+                for (var value of lines) {
+                    parts = value.split(",");
+                    for (var part of parts) {
+                        if (part.trim()) {
+                            field = inputScreen.createField();
+                            field.value = parseFloat(part);
+                            document.querySelector(".st-screen-fieldgroup").appendChild(field);
                         }
                     }
                 }
-                evt.target.files[0] = null;
+                event.target.files[0] = null;
             }
-            r.readAsText(f);
+            fr.readAsText(listFiles);
         } else {
-            alert("Failed to load file");
+            alert("Erro ao carregar o arquivo.");
         }
     }
 
     return {
-        createCSVFromFields: createCSVFromFields,
-        createCSV: createCSV,
-        download: download,
-        downloadImg: downloadImg,
+        saveCSV: saveCSV,
         savePNG: savePNG,
         saveJPG: saveJPG,
         saveSVG: saveSVG,

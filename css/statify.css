@@ -95,7 +95,7 @@
     background-color: #ccc;
 }
 
-.st-header-dropdown-opt-disabled{
+.hidden{
     display: none;
 }
 
@@ -112,7 +112,7 @@
     position: absolute;
     padding-bottom: 20px;
     right: 10px;
-    top: 0;
+    top: 5px;
 }
 
 .st-screen-table-header{
@@ -121,8 +121,22 @@
 
 .wide {
     width:300px;
+    text-align: center;
 }
 
 .narrow {
     width:120px;
+    text-align: center;
+}
+
+#dropdownContent {
+    margin-top: 35px;
+}
+
+.st-screen-table-numcell {
+    text-align: right;
+}
+
+.st-screen-table-titlecell {
+    text-align: center;
 }

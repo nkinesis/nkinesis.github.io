@@ -1,57 +1,63 @@
 <!DOCTYPE html>
 
 <head>
+    <title>Statify</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Awesome Description Here">
     <link rel="statify icon" href="favicon.ico" />
     <link href="css/statify.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <title>Statify</title>
+    
 </head>
 
 <body class="st-main">
     <div class="st-header">
         <div class="st-header-dropdown">
             <button class="st-header-dropdown-btn"></button>
-            <div id="dropdownContent" class="st-header-dropdown-opt-disabled">
-                <a id="itemClear" class="st-header-dropdown-opt-item" href="#">Limpar campos</a>
-                <a id="itemLoadCSV" class="st-header-dropdown-opt-item" href="#">Carrega CSV</a>
-            </div>
+            <div id="dropdownContent" class="st-header-dropdown-opt">
+                <a id="itemClear" class="st-header-dropdown-opt-item hidden" href="#">Limpar campos</a>
+                <a id="itemLoadCSV" class="st-header-dropdown-opt-item hidden" href="#">Carregar CSV</a>
+                <a id="itemDownloadCSV" class="st-header-dropdown-opt-item hidden" href="#">Download CSV</a>
+                <a id="itemDownloadPNG" class="st-header-dropdown-opt-item hidden" href="#">Download PNG</a>
+                <a id="itemDownloadJPG" class="st-header-dropdown-opt-item hidden" href="#">Download JPG</a>
+           </div>
         </div>
-        <div class="st-header-title">Menu Principal</div>
+        <h1 class="st-header-title">Menu Principal</h1>
         <div class="st-header-subtitle">Statify v1.1</div>
-        <img class="st-header-btn-back" src="img/arrow-left.png">
+        <img class="st-header-btn-back hidden" src="img/arrow-left.png" alt="Previous page">
     </div>
 
     <div id="st-screen-wrapper">
-        <div id="mainMenu" class="st-screen">
+        <div id="mainMenu" class="st-screen hidden">
             <button id="btnBegin" type="button" class="btn btn-primary">Iniciar pesquisa</button>
+            <button id="btnDemo" type="button" class="btn btn-primary">Ver demonstração</button>
             <button id="btnAbout" type="button" class="btn btn-primary">Sobre</button>
         </div>
 
-        <div id="inputScreen" class="st-screen">
+        <div id="inputScreen" class="st-screen hidden">
             <form id="fieldGroup" class="st-screen-fieldgroup"></form>
             <button id="btnOK" type="button" class="btn btn-primary">OK</button>
         </div>
 
-        <div id="tableMenu" class="st-screen">
+        <div id="tableMenu" class="st-screen hidden">
             <button id="btnRaw" type="button" class="btn btn-primary">Tabela Rol</button>
-            <button id="btnNci" type="button" class="btn btn-primary">Distribuição de Frequência CIC</button>
-            <button id="btnWci" type="button" class="btn btn-primary">Distribuição de Frequência SIC</button>
+            <button id="btnNci" type="button" class="btn btn-primary">Dist. de Frequência (Sem Intervalos)</button>
+            <button id="btnWci" type="button" class="btn btn-primary">Dist. de Frequência (Com Intervalos)</button>
             <button id="btnMsr" type="button" class="btn btn-primary">Medidas de Posição</button>
         </div>
 
-        <div id="tableScreen" class="st-screen">
+        <div id="tableScreen" class="st-screen hidden">
             <div id="mainContent"></div>
         </div>
 
-        <div id="uploadScreen" class="st-screen">
-            <input id="fileInput1" type="file">
+        <div id="uploadScreen" class="st-screen hidden">
+            <input id="fileInput1" type="file" accept=".csv">
         </div>
 
-        <div id="aboutScreen" class="st-screen">
+        <div id="aboutScreen" class="st-screen hidden">
             <div class="jumbotron" style="padding:10px">
                 <h1 class="display-4">Statify</h1>
                 <p class="lead">Gerador de Tabelas Estatísticas</p>
