@@ -133,23 +133,17 @@ var measures = (function () {
         if (listValues && [1, 2, 3].indexOf(q) > -1) {
             var n = listValues.length;
             var k = (Math.floor((q * (n + 1)) / 4)) - 1;
-            return listValues[k] + (((n + 1) / 4) - k) * (listValues[k + 1] - listValues[k]);
+            var result = listValues[k] + (((n + 1) / 4) - k) * (listValues[k + 1] - listValues[k]);
+            return result.toFixed(2);
         }
         return 0;
-    }
-
-    function getQuartiles(listValues) {
-        var result = [];
-        for (i = 1; i < 4; i++) {
-            result.push(quartile(i, listValues));
-        }
-        return "(" + result.join(", ") + ")";
     }
 
     function percentile(p, listValues) {
         if (listValues && p >= 1 && p <= 100) {
             var n = listValues.length;
-            return p * ((n + 1) / 100);
+            var result = p * ((n + 1) / 100);
+            return result.toFixed(2);
         }
         return 0;
     }
@@ -160,7 +154,6 @@ var measures = (function () {
         median: median,
         sturges: sturges,
         quartile: quartile,
-        getQuartiles: getQuartiles,
         percentile: percentile
     }
 })();
@@ -440,10 +433,11 @@ var tableDraw = (function () {
             mod: { label: "Moda", value: measures.mode(values) },
             med: { label: "Mediana", value: measures.median(values) }
         }
-        var table = createElement("table", {classname: "table table-striped"});
-        table.appendChild(drawHeader(4));
+        var msrTable = createElement("table", {classname: "table table-striped"});
+        msrTable.appendChild(drawHeader(4));
 
         var measureLine;
+        var wrapper = createElement('div');
         var tbody = createElement("tbody");
         for (var value of Object.keys(measureList)) {
             measureLine = measureList[value];
@@ -452,8 +446,45 @@ var tableDraw = (function () {
             tr.appendChild(createElement("td", { text: measureLine.value }));
             tbody.appendChild(tr);
         }
-        table.appendChild(tbody);
-        return table;
+        msrTable.appendChild(tbody);
+        var qpTable = createQuartPercTable();
+        wrapper.appendChild(msrTable);
+        wrapper.appendChild(qpTable);
+        return wrapper;
+    }
+
+    function createQuartPercTable(){
+        var listValues = dataset.get();
+        var tableQrt = createElement("table", {classname: "table table-striped"});
+        tableQrt.appendChild(drawHeader(4));
+        var tbody = createElement("tbody");
+        var tr;
+        for (i = 1; i < 4; i++) {
+            tr = createElement("tr", { classname: "st-tr-measure" });
+            tr.appendChild(createElement("td", { text: i }));
+            tr.appendChild(createElement("td", { text: measures.quartile(i, listValues) }));
+            tbody.appendChild(tr);
+        }
+        tableQrt.appendChild(tbody);
+
+        var tablePerc = createElement("table", {classname: "table table-striped"});
+        tablePerc.appendChild(drawHeader(4));
+        tbody = createElement("tbody");
+        var step = 9;
+        for (i = 1; i < 101; i+=step) {
+            if (i == 10) {
+                step = 10;
+            }
+            tr = createElement("tr", { classname: "st-tr-measure" });
+            tr.appendChild(createElement("td", { text: i }));
+            tr.appendChild(createElement("td", { text: measures.percentile(i, listValues) }));
+            tbody.appendChild(tr);
+        }
+        tablePerc.appendChild(tbody);
+        var wrapper = createElement('div');
+        wrapper.appendChild(tableQrt);
+        wrapper.appendChild(tablePerc);
+        return wrapper;
     }
 
     return {

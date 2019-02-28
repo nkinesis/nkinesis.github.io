@@ -1,12 +1,9 @@
-Sobre
-
-Pesquisa
-- Máximo 100 registros na inclusão
-
-Tabelas
-- MIT license
-- Tabela como csv
-- Mais uma opção de tabela, mostrando os cálculos
+Todo:
+- Mostrar todos os quartis e percentis
+- Permitir salvar as tabelas geradas como CSV ou imagem
+- Fazer testes amplos (pegar exemplos prontos, antigos e novos)
+- Ter um modo demo/testes- Incluir CSVs de exemplo no github
+- Incluir MIT license (dom-to-image)
 
 Testes
 http://www.portalaction.com.br/estatistica-basica/23-quartis
