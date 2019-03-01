@@ -381,7 +381,7 @@ var tableStats = (function () {
         }
     }
 
-    function calculateXi(qtyCateg, listCateg) {
+    function calculate_xi(listCateg) {
         var list_xi = [];
         for (var categ of listCateg) {
             var result = (categ.min + categ.max) / 2;
@@ -439,26 +439,30 @@ var tableStats = (function () {
     function calculateFri(listFi, total_fi) {
         var fri = [];
         var aux = 0;
-        for (var value of listFi) {
-            aux = value / total_fi;
-            fri.push(aux.toFixed(2));
+        if (total_fi) {
+            for (var value of listFi) {
+                aux = value / total_fi;
+                fri.push(aux.toFixed(2));
+            }
         }
         return fri;
     }
 
     function calculate_fci(list_fi) {
-        var aux = 0;
         var fci = [];
-        var fl = list_fi.length;
-        for (i = 0; i < fl; i++) {
-            if (i - 1 < 0) {
-                aux = (0 + (2 * list_fi[i]) + list_fi[i + 1]) / 4;
-            } else if (i + 1 > fl - 1) {
-                aux = (list_fi[i - 1] + (2 * list_fi[i]) + 0) / 4;
-            } else {
-                aux = (list_fi[i - 1] + (2 * list_fi[i]) + list_fi[i + 1]) / 4;
+        var aux = 0;
+        if (list_fi) {
+            var fl = list_fi.length;
+            for (i = 0; i < fl; i++) {
+                if (i - 1 < 0) {
+                    aux = (0 + (2 * list_fi[i]) + list_fi[i + 1]) / 4;
+                } else if (i + 1 > fl - 1) {
+                    aux = (list_fi[i - 1] + (2 * list_fi[i]) + 0) / 4;
+                } else {
+                    aux = (list_fi[i - 1] + (2 * list_fi[i]) + list_fi[i + 1]) / 4;
+                }
+                fci.push(aux.toFixed(2));
             }
-            fci.push(aux.toFixed(2));
         }
         return fci;
     }
@@ -466,7 +470,7 @@ var tableStats = (function () {
     return {
         createCategories: createCategories,
         populateCategories: populateCategories,
-        calculateXi: calculateXi,
+        calculate_xi: calculate_xi,
         calculate_fi: calculate_fi,
         calculate_fri: calculate_fri,
         calculateFi: calculateFi,
@@ -606,7 +610,7 @@ var tableDraw = (function () {
         var cl = listCateg.length;
 
         //generate columns
-        list_xi = tableStats.calculateXi(qtyCateg, listCateg); //xi
+        list_xi = tableStats.calculate_xi(listCateg); //xi
         result_fi = tableStats.calculate_fi(listCateg); //fi
         list_fi = result_fi.result;
         total_fi = result_fi.sum;

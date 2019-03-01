@@ -5,29 +5,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Awesome Description Here">
-    <link rel="statify icon" href="favicon.ico" />
+    <meta name="description" content="JavaScript application for creating statistical tables">
+    <link rel="icon" href="favicon.ico" />
     <link href="css/statify.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    
 </head>
 
 <body class="st-main">
     <div class="st-header">
         <div class="st-header-dropdown">
             <button class="st-header-dropdown-btn"></button>
-            <div id="dropdownContent" class="st-header-dropdown-opt">
+            <div id="dropdownContent" class="st-header-dropdown-opt top-margin-medium">
                 <a id="itemClear" class="st-header-dropdown-opt-item hidden" href="#">Limpar campos</a>
                 <a id="itemLoadCSV" class="st-header-dropdown-opt-item hidden" href="#">Carregar CSV</a>
                 <a id="itemDownloadCSV" class="st-header-dropdown-opt-item hidden" href="#">Download CSV</a>
                 <a id="itemDownloadPNG" class="st-header-dropdown-opt-item hidden" href="#">Download PNG</a>
                 <a id="itemDownloadJPG" class="st-header-dropdown-opt-item hidden" href="#">Download JPG</a>
-           </div>
+            </div>
         </div>
         <h1 class="st-header-title">Menu Principal</h1>
         <div class="st-header-subtitle">Statify v1.1</div>
-        <img class="st-header-btn-back hidden" src="img/arrow-left.png" alt="Previous page">
+        <img class="st-header-btn-back hidden" src="img/arrow-left.png" alt="Go back to previous page">
     </div>
 
     <div id="st-screen-wrapper">
@@ -38,8 +37,8 @@
         </div>
 
         <div id="inputScreen" class="st-screen hidden">
+            <button id="btnOK" type="button" class="btn btn-primary top-margin-small">OK</button>
             <form id="fieldGroup" class="st-screen-fieldgroup"></form>
-            <button id="btnOK" type="button" class="btn btn-primary">OK</button>
         </div>
 
         <div id="tableMenu" class="st-screen hidden">
