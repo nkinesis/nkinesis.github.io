@@ -85,6 +85,178 @@ var utils = (function () {
     }
 })();
 
+var files = (function () {
+
+    function saveCSV(listValues) {
+        if (!listValues || listValues.length == 0) {
+            alert("Nenhum dado informado.");
+            return;
+        } else {
+            var arq = "";
+            for (var value of listValues) {
+                if (arq.length == 0) {
+                    arq += value;
+                } else {
+                    arq += "," + value;
+                }
+            }
+            download("data" + utils.getDateTime() + ".csv", arq);
+        }
+    }
+
+    function download(filename, text) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    }
+
+    function downloadImg(filename, base64) {
+        var element = document.createElement('a');
+        element.setAttribute('href', base64);
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    }
+
+    function savePNG(element) {
+        domtoimage.toPng(element)
+            .then(function (dataUrl) {
+                downloadImg("img" + utils.getDateTime(), dataUrl);
+            })
+            .catch(function (error) {
+                console.error('Erro', error);
+            });
+    }
+
+    function saveJPG(element) {
+        domtoimage.toJpeg(element)
+            .then(function (dataUrl) {
+                downloadImg("img" + utils.getDateTime(), dataUrl);
+            })
+            .catch(function (error) {
+                console.error('Erro', error);
+            });
+    }
+
+    function saveSVG(element) {
+        domtoimage.toSvg(element)
+            .then(function (dataUrl) {
+                downloadImg("img" + utils.getDateTime(), dataUrl);
+            })
+            .catch(function (error) {
+                console.error('Erro', error);
+            });
+    }
+
+    function readSingleFile(event) {
+
+        var listFiles = event.target.files[0];
+        if (listFiles) {
+            switcher.navigate("inputScreen");
+            var fields = document.querySelectorAll(".st-screen-fieldgroup .st-screen-field");
+            for (var field of fields) {
+                field.parentNode.removeChild(field);
+            }
+            var fr = new FileReader();
+            fr.onload = function (e) {
+                var contents = e.target.result;
+                var lines = contents.split("\n");
+                var parts = [];
+                var field = null;
+                for (var value of lines) {
+                    parts = value.split(",");
+                    for (var part of parts) {
+                        if (part.trim()) {
+                            field = inputScreen.createField();
+                            field.value = parseFloat(part);
+                            document.querySelector(".st-screen-fieldgroup").appendChild(field);
+                        }
+                    }
+                }
+                event.target.files[0] = null;
+            }
+            fr.readAsText(listFiles);
+        } else {
+            alert("Erro ao carregar o arquivo.");
+        }
+    }
+
+    return {
+        saveCSV: saveCSV,
+        savePNG: savePNG,
+        saveJPG: saveJPG,
+        saveSVG: saveSVG,
+        readSingleFile: readSingleFile,
+    }
+})();   
+
+var dataset = (function () {
+    var demo = false;
+    var data = [];
+    var classRange = [];
+    var testValues = [18, 18, 19, 19, 20, 21, 21, 21, 22, 22, 22, 22, 22, 22, 23, 23, 23, 23, 23, 23, 23, 24, 24, 24, 24, 24, 24, 24, 24, 24, 25, 25, 25, 25, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 29, 29, 29, 29, 29, 29, 29, 29, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 31, 31, 31, 31, 31, 31, 31, 32, 32, 32, 32, 32, 33, 33, 33, 34, 34, 34, 34, 34, 35, 36, 36, 36, 37, 37, 37, 37, 37, 38, 38, 38, 38, 38, 39, 39, 39, 40, 40, 40, 40, 40, 40, 41, 41, 41, 42, 42, 42, 42, 43, 43, 43, 44, 44, 44, 45, 45, 45, 46, 46, 47, 47, 47, 47, 48, 48, 48, 48, 48, 48, 49, 49, 50, 50, 50, 51, 51, 52, 52, 53, 53, 53, 53, 56, 61, 62, 63, 63];
+
+    function create(overwrite) {
+        if (demo) {
+            data = testValues;
+        } else {
+            var fields = document.querySelectorAll('#fieldGroup .st-screen-field');
+            if (overwrite) {
+                clear();
+            } else if (data.length > 0) {
+                return;
+            }
+            for (var field of fields) {
+                if (field.value) {
+                    data.push(parseFloat(field.value));
+                }
+            }
+            data = data.sort(utils.sortNumber);
+        }
+    }
+
+    function setRandom(n) {
+        clear();
+        n > 1000 ? n = 1000 : null;
+        for (var i = 0; i < n; i++) {
+            data.push(Math.floor((Math.random() * 100) + 1));
+        }
+    }
+
+    function setDemo(value){
+        if (value) {
+            demo = true;
+        } else {
+            demo = false;
+        }
+    }
+
+    function clear(){
+        data = [];
+        classRange = []; 
+    }
+
+    function get() {
+        return data;
+    }
+
+    return {
+        get: get,
+        clear:clear,
+        create: create,
+        setDemo, setDemo,
+        setRandom: setRandom,
+        classRange: classRange
+    }
+
+})();
+
 var measures = (function () {
     function sturges(numValues) {
         if (numValues) {
@@ -531,113 +703,4 @@ var tableDraw = (function () {
 
 })();
 
-var files = (function () {
-
-    function saveCSV(listValues) {
-        if (!listValues || listValues.length == 0) {
-            alert("Nenhum dado informado.");
-            return;
-        } else {
-            var arq = "";
-            for (var value of listValues) {
-                if (arq.length == 0) {
-                    arq += value;
-                } else {
-                    arq += "," + value;
-                }
-            }
-            download("data" + utils.getDateTime() + ".csv", arq);
-        }
-    }
-
-    function download(filename, text) {
-        var element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-        element.setAttribute('download', filename);
-        element.style.display = 'none';
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
-    }
-
-    function downloadImg(filename, base64) {
-        var element = document.createElement('a');
-        element.setAttribute('href', base64);
-        element.setAttribute('download', filename);
-        element.style.display = 'none';
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
-    }
-
-    function savePNG(element) {
-        domtoimage.toPng(element)
-            .then(function (dataUrl) {
-                downloadImg("img" + utils.getDateTime(), dataUrl);
-            })
-            .catch(function (error) {
-                console.error('Erro', error);
-            });
-    }
-
-    function saveJPG(element) {
-        domtoimage.toJpeg(element)
-            .then(function (dataUrl) {
-                downloadImg("img" + utils.getDateTime(), dataUrl);
-            })
-            .catch(function (error) {
-                console.error('Erro', error);
-            });
-    }
-
-    function saveSVG(element) {
-        domtoimage.toSvg(element)
-            .then(function (dataUrl) {
-                downloadImg("img" + utils.getDateTime(), dataUrl);
-            })
-            .catch(function (error) {
-                console.error('Erro', error);
-            });
-    }
-
-    function readSingleFile(event) {
-
-        var listFiles = event.target.files[0];
-        if (listFiles) {
-            switcher.navigate("inputScreen");
-            var fields = document.querySelectorAll(".st-screen-fieldgroup .st-screen-field");
-            for (var field of fields) {
-                field.parentNode.removeChild(field);
-            }
-            var fr = new FileReader();
-            fr.onload = function (e) {
-                var contents = e.target.result;
-                var lines = contents.split("\n");
-                var parts = [];
-                var field = null;
-                for (var value of lines) {
-                    parts = value.split(",");
-                    for (var part of parts) {
-                        if (part.trim()) {
-                            field = inputScreen.createField();
-                            field.value = parseFloat(part);
-                            document.querySelector(".st-screen-fieldgroup").appendChild(field);
-                        }
-                    }
-                }
-                event.target.files[0] = null;
-            }
-            fr.readAsText(listFiles);
-        } else {
-            alert("Erro ao carregar o arquivo.");
-        }
-    }
-
-    return {
-        saveCSV: saveCSV,
-        savePNG: savePNG,
-        saveJPG: saveJPG,
-        saveSVG: saveSVG,
-        readSingleFile: readSingleFile,
-    }
-})();    
+ 

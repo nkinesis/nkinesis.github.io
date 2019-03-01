@@ -162,67 +162,6 @@ var switcher = (function () {
     }
 })();
 
-var dataset = (function () {
-    var demo = false;
-    var data = [];
-    var classRange = [];
-    var testValues = [18, 18, 19, 19, 20, 21, 21, 21, 22, 22, 22, 22, 22, 22, 23, 23, 23, 23, 23, 23, 23, 24, 24, 24, 24, 24, 24, 24, 24, 24, 25, 25, 25, 25, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 29, 29, 29, 29, 29, 29, 29, 29, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 31, 31, 31, 31, 31, 31, 31, 32, 32, 32, 32, 32, 33, 33, 33, 34, 34, 34, 34, 34, 35, 36, 36, 36, 37, 37, 37, 37, 37, 38, 38, 38, 38, 38, 39, 39, 39, 40, 40, 40, 40, 40, 40, 41, 41, 41, 42, 42, 42, 42, 43, 43, 43, 44, 44, 44, 45, 45, 45, 46, 46, 47, 47, 47, 47, 48, 48, 48, 48, 48, 48, 49, 49, 50, 50, 50, 51, 51, 52, 52, 53, 53, 53, 53, 56, 61, 62, 63, 63];
-
-    function create(overwrite) {
-        if (demo) {
-            data = testValues;
-        } else {
-            var fields = document.querySelectorAll('#fieldGroup .st-screen-field');
-            if (overwrite) {
-                clear();
-            } else if (data.length > 0) {
-                return;
-            }
-            for (var field of fields) {
-                if (field.value) {
-                    data.push(parseFloat(field.value));
-                }
-            }
-            data = data.sort(utils.sortNumber);
-        }
-    }
-
-    function setRandom(n) {
-        clear();
-        n > 1000 ? n = 1000 : null;
-        for (var i = 0; i < n; i++) {
-            data.push(Math.floor((Math.random() * 100) + 1));
-        }
-    }
-
-    function setDemo(value){
-        if (value) {
-            demo = true;
-        } else {
-            demo = false;
-        }
-    }
-
-    function clear(){
-        data = [];
-        classRange = []; 
-    }
-
-    function get() {
-        return data;
-    }
-
-    return {
-        get: get,
-        clear:clear,
-        create: create,
-        setDemo, setDemo,
-        setRandom: setRandom,
-        classRange: classRange
-    }
-
-})();
-
 var mainMenu = (function () {
     var btnBegin = document.querySelector('#btnBegin');
     var btnDemo = document.querySelector('#btnDemo');
@@ -403,9 +342,6 @@ var tableScreen = (function () {
         files.saveJPG(mainContent);
     }
 
-})();
-
-var aboutScreen = (function () {
 })();
 
 switcher.init();
