@@ -51,19 +51,19 @@ body {
     body .window div .frame {
       background-color: #fff;
       width: 80%;
-      height: auto;
+      height: 70vh;
+      overflow: scroll;
+      overflow-x: hidden;
       margin: 62px auto;
       flex: 0;
-      border: 2px solid black;
-      overflow: hidden; }
+      border: 2px solid black; }
       @media only screen and (max-width: 600px) {
         body .window div .frame {
           width: 100%;
           margin: 25px auto; } }
       @media only screen and (max-width: 400px) {
         body .window div .frame {
-          height: auto;
-          overflow: scroll; } }
+          height: auto; } }
       body .window div .frame .caption {
         color: #000;
         border: 2px solid black;
@@ -74,22 +74,9 @@ body {
         border-top: none;
         border-left: none;
         border-right: none;
-        text-overflow: ellipsis; }
-        body .window div .frame .caption .arrow {
-          cursor: pointer; }
-          body .window div .frame .caption .arrow img {
-            height: 23px;
-            max-width: 100%;
-            cursor: pointer; }
-          body .window div .frame .caption .arrow .prev {
-            transform: rotate(180deg); }
-        body .window div .frame .caption div {
-          border-right: 2px solid black;
-          text-align: center; }
-          body .window div .frame .caption div.last {
-            border-right: none; }
-          body .window div .frame .caption div.arrow {
-            font-weight: bold; }
+        text-overflow: ellipsis;
+        padding-left: 10px;
+        font-weight: bold; }
       body .window div .frame .content {
         color: #000;
         padding: 15px;
@@ -108,72 +95,17 @@ body {
               line-height: 1em; } }
         body .window div .frame .content .subtitle {
           font-size: 28px;
-          line-height: 1.2em; }
+          line-height: 1.2em;
+          margin-bottom: 5px; }
           @media only screen and (max-width: 400px) {
             body .window div .frame .content .subtitle {
               font-size: 24px;
               line-height: 1em; } }
-      body .window div .frame .skills,
-      body .window div .frame .projects,
-      body .window div .frame .contact,
-      body .window div .frame .credits,
-      body .window div .frame .sitegram {
-        display: none;
-        line-height: 2em; }
-        @media only screen and (max-width: 400px) {
-          body .window div .frame .skills,
-          body .window div .frame .projects,
-          body .window div .frame .contact,
-          body .window div .frame .credits,
-          body .window div .frame .sitegram {
-            font-size: 16px; } }
-        body .window div .frame .skills a,
-        body .window div .frame .projects a,
-        body .window div .frame .contact a,
-        body .window div .frame .credits a,
-        body .window div .frame .sitegram a {
-          color: #4EA0F6;
-          text-decoration: underline;
-          font-size: 20px;
-          line-height: 2em;
-          display: block;
-          overflow-wrap: break-word;
-          word-wrap: break-word; }
-          @media only screen and (max-width: 400px) {
-            body .window div .frame .skills a,
-            body .window div .frame .projects a,
-            body .window div .frame .contact a,
-            body .window div .frame .credits a,
-            body .window div .frame .sitegram a {
-              font-size: 16px;
-              line-height: 2em; } }
-      body .window div .frame .projects {
-        overflow: scroll;
-        height: 100%; }
-        body .window div .frame .projects .display img {
-          float: left;
-          display: block;
-          width: auto;
-          max-height: 148px;
-          margin: 0 10px 10px 0; }
-      body .window div .frame .credits {
-        height: 100%;
-        background-color: #000;
-        color: #fff; }
-        body .window div .frame .credits .col-12 {
-          height: 100%; }
-        body .window div .frame .credits .links {
-          position: absolute;
-          bottom: 0;
-          padding-bottom: 20px; }
-          @media only screen and (max-width: 400px) {
-            body .window div .frame .credits .links {
-              position: relative; } }
-      body .window div .frame .sitegram .col-12 {
-        text-align: center; }
-        body .window div .frame .sitegram .col-12 img {
-          width: auto;
-          height: 350px; }
+      body .window div .frame .contact-bar {
+        font-size: 14px;
+        font-weight: initial; }
+        body .window div .frame .contact-bar a {
+          text-decoration: underline; }
   body footer {
     position: absolute;
     bottom: 0;

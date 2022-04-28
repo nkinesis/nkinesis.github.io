@@ -65,18 +65,18 @@ body {
             .frame {
                 background-color: #fff;
                 width: 80%;
-                height: auto;
+                height: 70vh;
+                overflow: scroll;
+                overflow-x: hidden;
                 margin: 62px auto;
                 flex: 0;
                 border: 2px solid black;
-                overflow: hidden;
                 @media only screen and (max-width: 600px) {
                     width: 100%;
                     margin: 25px auto;
                 }
                 @media only screen and (max-width: 400px) {
                     height: auto;
-                    overflow: scroll;
                 }
                 .caption {
                     color: #000;
@@ -89,27 +89,8 @@ body {
                     border-left: none;
                     border-right: none;
                     text-overflow: ellipsis;
-                    .arrow {
-                        cursor: pointer;
-                        img {
-                            height: 23px;
-                            max-width: 100%;
-                            cursor: pointer;
-                        }
-                        .prev {
-                            transform: rotate(180deg);
-                        }
-                    }
-                    div {
-                        border-right: 2px solid black;
-                        text-align: center;
-                        &.last {
-                            border-right: none;
-                        }
-                        &.arrow {
-                            font-weight: bold;
-                        }
-                    }
+                    padding-left: 10px;
+                    font-weight: bold;
                 }
                 .content {
                     color: #000;
@@ -131,72 +112,18 @@ body {
                     .subtitle {
                         font-size: 28px;
                         line-height: 1.2em;
+                        margin-bottom: 5px;
                         @media only screen and (max-width: 400px) {
                             font-size: 24px;
                             line-height: 1em;
                         }
                     }
                 }
-                .skills,
-                .projects,
-                .contact,
-                .credits,
-                .sitegram {
-                    display: none;
-                    line-height: 2em;
-                    @media only screen and (max-width: 400px) {
-                        font-size: 16px;
-                    }
+                .contact-bar {
+                    font-size: 14px;
+                    font-weight: initial;
                     a {
-                        color: #4EA0F6;
                         text-decoration: underline;
-                        font-size: 20px;
-                        line-height: 2em;
-                        display: block;
-                        overflow-wrap: break-word;
-                        word-wrap: break-word;
-                        @media only screen and (max-width: 400px) {
-                            font-size: 16px;
-                            line-height: 2em;
-                        }
-                    }
-                }
-                .projects {
-                    overflow: scroll;
-                    height: 100%;
-                    .display {
-                        img {
-                            float: left;
-                            display: block;
-                            width: auto;
-                            max-height: 148px;
-                            margin: 0 10px 10px 0;
-                        }
-                    }
-                }
-                .credits {
-                    height: 100%;
-                    background-color: #000;
-                    color: #fff;
-                    .col-12 {
-                        height: 100%;
-                    }
-                    .links {
-                        position: absolute;
-                        bottom: 0;
-                        padding-bottom: 20px;
-                        @media only screen and (max-width: 400px) {
-                            position: relative;
-                        }
-                    }
-                }
-                .sitegram {
-                    .col-12 {
-                        text-align: center;
-                        img {
-                            width: auto;
-                            height: 350px;
-                        }
                     }
                 }
             }
