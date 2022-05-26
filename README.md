@@ -1,7 +1,6 @@
 # Personal site
 
 ## TODO
-- Create mobile menu
-- Adjust font size to mobile
-- Adjust scrolling to mobile
+- Setup Github pages
+- Test on mobile
 - Add floppy easter egg

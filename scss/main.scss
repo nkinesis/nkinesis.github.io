@@ -1,7 +1,7 @@
 body {
     font-family: 'Courier New', Courier, monospace !important;
     //font-family: 'VT323', monospace;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 24px;
     background-color: #4EA0F6 !important;
     color: #fff;
@@ -16,12 +16,25 @@ body {
         padding-right: 8px;
         user-select: none;
         overflow: hidden;
+        @media only screen and (max-width: 550px) {
+            background-color: #000;
+            height: auto;
+            padding: 8px;
+        }
         .left-corner {
             padding: 0;
         }
         .icon-file {
             height: 28px;
-            max-width: 100%;
+            &:hover {
+                cursor: not-allowed;
+            }
+            @media only screen and (max-width: 550px) {
+                height: 35px;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
         }
         .caption {
             color: #fff;
@@ -30,11 +43,31 @@ body {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            .untitled {
+                display: initial;
+            }
+            @media only screen and (max-width: 550px) {
+                .untitled {
+                    display: none;
+                }
+            }
+
         }
     }
     .navbar {
         background-color: #000;
         user-select: none;
+        @media only screen and (max-width: 550px) {
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+            transition: .5s;
+            &.open {
+                overflow: visible;
+                height: 220px;
+                transition: .5s;
+            }
+        }
         div {
             nav {
                 a {
@@ -43,10 +76,9 @@ body {
                     background-color: #000;
                     font-weight: bold;
                     cursor: pointer;
-                    @media only screen and (max-width: 500px) {
+                    @media only screen and (max-width: 550px) {
+                        width: 100%;
                         display: block;
-                        width: 130px;
-                        float: left;
                     }
                     &.selected {
                         color: #000;
@@ -65,7 +97,7 @@ body {
             .frame {
                 background-color: #fff;
                 width: 80%;
-                height: 70vh;
+                height: 76vh;
                 overflow: scroll;
                 overflow-x: hidden;
                 margin: 62px auto;
@@ -73,10 +105,8 @@ body {
                 border: 2px solid black;
                 @media only screen and (max-width: 600px) {
                     width: 100%;
+                    height: 83vh;
                     margin: 25px auto;
-                }
-                @media only screen and (max-width: 400px) {
-                    height: auto;
                 }
                 .caption {
                     color: #000;
@@ -89,41 +119,76 @@ body {
                     border-left: none;
                     border-right: none;
                     text-overflow: ellipsis;
-                    padding-left: 10px;
+                    padding: 10px;
                     font-weight: bold;
+                    font-size: 22px;
                 }
                 .content {
                     color: #000;
                     padding: 15px;
                     border: none;
                     font-size: 20px;
-                    @media only screen and (max-width: 400px) {
-                        font-size: 16px;
-                        line-height: 1em;
-                    }
-                    .title {
-                        font-size: 32px;
-                        line-height: 1.2em;
-                        @media only screen and (max-width: 400px) {
-                            font-size: 28px;
-                            line-height: 1em;
+                    .headline {
+                        max-width: 992px;
+                        display: flex;
+                        margin-bottom: 30px;
+                        @media only screen and (max-width: 992px) {
+                            margin-bottom: 0;
+                        }
+                        img {
+                            max-width: 150px;
+                            height: 100%;
+                            margin-right: 50px;
+                            @media only screen and (max-width: 992px) {
+                                display: none;
+                            }
                         }
                     }
-                    .subtitle {
+                    .big-title {
                         font-size: 28px;
                         line-height: 1.2em;
-                        margin-bottom: 5px;
-                        @media only screen and (max-width: 400px) {
-                            font-size: 24px;
-                            line-height: 1em;
+                        margin-bottom: 10px;
+                        font-weight: bold;
+                    }
+                    .title {
+                        font-size: 22px;
+                        line-height: 1.2em;
+                        margin-bottom: 10px;
+                        font-weight: bold;
+                    }
+                    .subtitle {
+                        font-size: 20px;
+                        line-height: 1.2em;
+                        margin-bottom: 10px;
+                        font-weight: bold;
+                    }
+                    .paragraph {
+                        font-size: 18px;
+                        line-height: 1.3em;
+                        margin-bottom: 30px;
+                        @media only screen and (max-width: 550px) {
+                            padding-inline-start: 20px;
+                        }
+                        li {
+                            margin-bottom: 10px;
+                            @media only screen and (max-width: 550px) {
+                                margin-bottom: 20px;
+                            }
                         }
                     }
                 }
                 .contact-bar {
-                    font-size: 14px;
+                    font-size: 18px;
                     font-weight: initial;
+                    img {
+                        width: 32px;
+                        margin-right: 10px;
+                        @media only screen and (max-width: 400px) {
+                            margin-bottom: 10px;
+                        }
+                    }
                     a {
-                        text-decoration: underline;
+                        text-decoration: none;
                     }
                 }
             }
@@ -150,7 +215,7 @@ body {
         .icon-floppy {
             width: 60px;
             padding-top: 2px;
-            cursor: pointer;
+            cursor: not-allowed;
         }
     }
 }

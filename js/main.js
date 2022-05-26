@@ -1,18 +1,20 @@
-var d = new Date();
-var currentPage = 1;
-
-function initDates() {
-    document.querySelector(".clock").innerText = getHourString();
-    document.querySelector(".last").innerText = getDateString();
-    setInterval(function() {
-        document.querySelector(".clock").innerText = getHourString();
-    }, 10000);
+function init() {
+    setMobileMenu()
 }
 
-function getDateString() {
-    return d.toLocaleString("pt-br", { day: "numeric", year: "numeric", weekday: "short", month: "long" });
+function setMobileMenu() {
+   var icon = document.querySelector(".icon-file");
+   var navbar = document.querySelector(".container-fluid .navbar");
+   var defaultNavbarClass = "navbar row";
+   if (icon && navbar) {
+    icon.addEventListener("click", function() {
+        if (navbar.className == defaultNavbarClass) {
+            navbar.className = defaultNavbarClass + " open";
+        } else {
+            navbar.className = defaultNavbarClass;
+        }       
+    });
+   }
 }
 
-function getHourString() {
-    return d.toLocaleString("pt-br", { hour: "numeric", minute: "numeric", hour12: "true" });
-}
+init();
