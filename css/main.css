@@ -139,14 +139,14 @@ body {
           font-size: 18px;
           line-height: 1.3em;
           margin-bottom: 30px; }
-          @media only screen and (max-width: 550px) {
-            body .window div .frame .content .paragraph {
-              padding-inline-start: 20px; } }
           body .window div .frame .content .paragraph li {
             margin-bottom: 10px; }
             @media only screen and (max-width: 550px) {
               body .window div .frame .content .paragraph li {
                 margin-bottom: 20px; } }
+        @media only screen and (max-width: 550px) {
+          body .window div .frame .content ul.paragraph {
+            padding-inline-start: 20px; } }
       body .window div .frame .contact-bar {
         font-size: 18px;
         font-weight: initial; }
