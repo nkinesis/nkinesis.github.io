@@ -45,12 +45,12 @@ body {
           display: none; } }
   body .navbar {
     background-color: #000;
-    user-select: none; }
+    user-select: none;
+    overflow: hidden; }
     @media only screen and (max-width: 550px) {
       body .navbar {
         height: 0;
         padding: 0;
-        overflow: hidden;
         transition: .5s; }
         body .navbar.open {
           overflow: visible;
@@ -79,7 +79,7 @@ body {
       height: 76vh;
       overflow: scroll;
       overflow-x: hidden;
-      margin: 62px auto;
+      margin: 40px auto;
       flex: 0;
       border: 2px solid black; }
       @media only screen and (max-width: 600px) {
