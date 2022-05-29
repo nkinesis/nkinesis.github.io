@@ -1,6 +1,6 @@
 # Personal site
+This is Gabriel Ullmann's personal site containing a brief bio, CV, academic publications and posts.
 
 ## TODO
-- Setup Github pages
-- Test on mobile
+- Test on iphone
 - Add floppy easter egg
