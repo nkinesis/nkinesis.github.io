@@ -1,5 +1,8 @@
+var counter = 0;
+
 function init() {
     setMobileMenu()
+    setListeners()
 }
 
 function setMobileMenu() {
@@ -15,6 +18,16 @@ function setMobileMenu() {
         }       
     });
    }
+}
+
+function setListeners() {
+    var elm = document.querySelector(".icon-floppy");
+    elm.addEventListener("dblclick", function() {
+        counter++;
+        if (counter > 3) {
+            window.location = atob('c3BhY2UtaW52YWRlcnMuaHRtbA==');
+        }
+    });
 }
 
 init();

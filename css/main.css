@@ -106,6 +106,8 @@ body {
         padding: 15px;
         border: none;
         font-size: 20px; }
+        body .window div .frame .content canvas {
+          margin: auto; }
         body .window div .frame .content .headline {
           max-width: 992px;
           display: flex;
