@@ -15,46 +15,66 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+var player, cursors, captionState, c1, c2, prevMouseX, prevMouseY;
 
-function preload ()
-{
+function preload() {
     this.load.image('bg', '../img/other/bg.png');
     this.load.image('player', '../img/other/player.png');
-    this.load.image('enemy', '../img/other/enemy.png'); 
+    this.load.image('enemy', '../img/other/enemy.png');
 }
 
-var player, cursors, captionState, c1, c2;
-function create ()
-{
+function create() {
     c1 = this.add.arc(400, 300, 200, 0, 360, false, 0x007bff);
     c2 = this.add.arc(400, 300, 150, 0, 360, false, 0x4FFAE6);
     player = this.physics.add.sprite(400, 300, 'player');
     player.setBounce(0.2);
     player.setCollideWorldBounds(true);
     cursors = this.input.keyboard.createCursorKeys();
-    captionState = this.add.text(320, 220, 'Everything is OK.', {color: "#000"});
+    captionState = this.add.text(320, 220, 'Everything is OK.', { color: "#000" });
+
+    this.input.on('pointerdown', function (pointer) {
+        game.input.mouse.requestPointerLock();
+    }, this);
+
+    this.input.on('pointermove', function (pointer) {
+        if (game.input.mouse.locked) {
+            if (pointer.movementX > 0) {
+                console.log("right");
+                player.setVelocityX(160);
+            } else if (pointer.movementX < 0) {
+                console.log("left");
+                player.setVelocityX(-160);
+            }
+
+            if (pointer.movementY > 0) {
+                console.log("down");
+                player.setVelocityY(160);
+            } else if (pointer.movementY < 0) {
+                console.log("up");
+                player.setVelocityY(-160);
+            }
+
+        }
+        prevMouseX = pointer.movementX;
+        prevMouseY = pointer.movementY;
+    });
 }
 
 var timer = 0;
 var enemies = [];
-function update ()
-{
-    //console.log(player.x, player.y)
+function update() {
     timer += 1;
-    if (cursors.left.isDown)
-    {
+
+    if (cursors.left.isDown) {
         player.setVelocityX(-160);
     }
-    else if (cursors.right.isDown)
-    {
+    else if (cursors.right.isDown) {
         player.setVelocityX(160);
     }
-    else if (cursors.up.isDown)
-    {
+    else if (cursors.up.isDown) {
         player.setVelocityY(-160);
     }
-    else if (cursors.down.isDown)
-    {
+    else if (cursors.down.isDown) {
         player.setVelocityY(160);
     }
     if (timer % 300 == 0) {
@@ -62,7 +82,7 @@ function update ()
         var posY = getRandomInt(0, config.height);
 
         var enemy = this.physics.add.sprite(posX, posY, 'enemy');
-        console.log(posX, posY);
+        //console.log(posX, posY);
         enemy.setBounce(0.2);
         enemy.setCollideWorldBounds(true);
 
@@ -79,7 +99,7 @@ function update ()
             times2++;
         }
         if (Phaser.Geom.Intersects.CircleToRectangle(c1, enm)) {
-            console.log(enm.x + " is touching circle")
+            //console.log(enm.x + " is touching circle")
             changeStatus(1);
             times++;
             break;
@@ -100,7 +120,7 @@ function changeStatus(status) {
         captionState.x = 330;
         captionState.text = "<SPACE INVADED>";
         c1.fillColor = 0xe78282;
-    } else { 
+    } else {
         captionState.x = 320;
         captionState.text = "Everything is OK.";
         c1.fillColor = 0x007bff;
