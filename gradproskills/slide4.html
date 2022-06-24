@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Basics - GradProSkills</title>
+</head>
+
+<style>
+    body {
+        font-size: 16px;
+        overflow: hidden;
+        margin: 0;
+        font-family: sans-serif;
+    }
+
+    body #slide {
+        padding: 80px;
+    }
+
+    body #slide h1 {
+        color: #f55e61;
+        font-size: 3.2em;
+        font-weight: bold;
+    }
+
+    body #slide ul {
+        margin-bottom: 50px;
+    }
+
+    body #slide ul li {
+        color: #51575d;
+        font-size: 2.2em;
+        line-height: 1.5em;
+    }
+
+    body #colorbar {
+        background-color: #f55e61;
+        width: 100%;
+        height: 25px;
+        bottom: 0;
+        position: absolute;
+    }
+
+    body .code {
+        color: #000;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    
+</style>
+
+<body>
+
+    <div id="slide">
+        <h1>1. Base structure and color properties</h1>
+        <ul>
+            <li><span class="code">background-color: #f55e61</span></li>
+            <li><span class="code">color: white</span></li>
+        </ul>
+        <div id="outer-square">   
+            <div id="inner-square">
+                <h2>CSS Basics</h2>
+                <h3>Gabriel C. Ullmann</h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="colorbar">
+</body>
+
+<script>
+    document.onkeydown = function (event) {
+        switch (event.keyCode) {
+            case 37:
+                window.location = "slide2.html";
+                break
+            case 39:
+                window.location = "slide5.html";
+                break;
+        }
+    };
+</script>
+
+</html>

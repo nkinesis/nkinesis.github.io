@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Basics - GradProSkills</title>
+</head>
+
+<style>
+    body {
+        font-size: 16px;
+        overflow: hidden;
+        margin: 0;
+        font-family: sans-serif;
+    }
+
+    body #slide {
+        padding: 80px;
+    }
+
+    body #slide h1 {
+        color: #f55e61;
+        font-size: 3.2em;
+        font-weight: bold;
+    }
+
+    body #slide ul li {
+        color: #51575d;
+        font-size: 2.2em;
+        line-height: 1.5em;
+    }
+
+    body #images {
+        display: flex;
+        justify-content: space-evenly;
+        margin-top: 100px;
+    }
+
+    body #images img {
+        height: fit-content;
+    }
+
+    body #images img#concordia {
+        width: 45%;
+    }
+
+    body #colorbar {
+        background-color: #f55e61;
+        width: 100%;
+        height: 25px;
+        bottom: 0;
+        position: absolute;
+    }
+</style>
+
+<body>
+
+    <div id="slide">
+        <h1>Introduction</h1>
+
+        <ul>
+            <li>Cascading Style Sheets (CSS)</li>
+            <li>Language used to describe the presentation of an HTML document</li>
+        </ul>
+
+        <div id="images">
+            <img id="concordia" src="images/concordia-website.png" alt="Concordia's Website">
+            <img id="csslogo" src="images/css-logo.png" alt="CSS official logo">
+        </div>
+
+    </div>
+
+    <div id="colorbar">
+</body>
+
+<script>
+    document.onkeydown = function (event) {
+        switch (event.keyCode) {
+            case 37:
+                window.location = "cover.html";
+                break
+            case 39:
+                window.location = "slide2.html";
+                break;
+        }
+    };
+</script>
+
+</html>

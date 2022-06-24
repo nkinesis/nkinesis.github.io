@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Basics - GradProSkills</title>
+</head>
+
+<style>
+    body {
+        font-size: 16px;
+        overflow: hidden;
+        margin: 0;
+        font-family: sans-serif;
+    }
+
+    body #slide {
+        padding: 80px;
+    }
+
+    body #slide h1 {
+        color: #f55e61;
+        font-size: 3.2em;
+        font-weight: bold;
+    }
+
+    body #slide ul {
+        margin-bottom: 50px;
+    }
+
+    body #slide ul li {
+        color: #51575d;
+        font-size: 2.2em;
+        line-height: 1.5em;
+    }
+
+    body #colorbar {
+        background-color: #f55e61;
+        width: 100%;
+        height: 25px;
+        bottom: 0;
+        position: absolute;
+    }
+
+    body .code {
+        color: #000;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    #outer-square {
+        background-color: #f55e61;
+        color: white;
+        width: 350px;
+        height: 350px;
+        margin: auto;
+        text-align: center;
+        padding: 30px;
+    }
+
+    #inner-square {
+        border: 4px solid #fff;
+    }
+</style>
+
+<body>
+
+    <div id="slide">
+        <h1>4. Using flex</h1>
+        <ul>
+            <li><span class="code">display: flex;</span></li>
+            <li><span class="code">justify-content: center;</span></li>
+            <li><span class="code">flex-direction: column;</span></li>
+            <li><span class="code">height: 100%;</span></li>
+        </ul>
+        <div id="outer-square">   
+            <div id="inner-square">
+                <h2>CSS Basics</h2>
+                <h3>Gabriel C. Ullmann</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="colorbar">
+</body>
+
+<script>
+    document.onkeydown = function (event) {
+        switch (event.keyCode) {
+            case 37:
+                window.location = "slide6.html";
+                break
+            case 39:
+                window.location = "slide8.html";
+                break;
+        }
+    };
+</script>
+
+</html>
