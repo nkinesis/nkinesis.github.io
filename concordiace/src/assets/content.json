@@ -1,0 +1,128 @@
+{
+    "slides": [
+        {
+            "title": "What is Vue.js?",
+            "items": [
+                {
+                    "type": "link",
+                    "content": "JavaScript front-end framework",
+                    "href": "https://www.youtube.com/watch?v=OrxmtDw4pVI"
+                },
+                {
+                    "type": "text",
+                    "content": "Created by Evan You in 2014"
+                },
+                {
+                    "type": "text",
+                    "content": "Principles: Approachable, Performant, Versatile"
+                },
+                {
+                    "type": "text",
+                    "content": "Can be used for all kinds of applications"
+                }
+            ]
+        },
+        {
+            "title": "What are we going to see in this class?",
+            "items": [
+                {
+                    "type": "text",
+                    "content": "Instance: base app and component structure"
+                },
+                {
+                    "type": "text",
+                    "content": "Lifecycle: component creation and updating"
+                },
+                {
+                    "type": "text",
+                    "content": "Events: observing user interaction"
+                }
+            ]
+        },
+        {
+            "title": "Instance",
+            "link": "https://vuejs.org/guide/essentials/application.html",
+            "items": [
+                {
+                    "type": "text",
+                    "content": "Root component (App)"
+                },
+                {
+                    "type": "text",
+                    "content": "Component tree"
+                },
+                {
+                    "type": "text",
+                    "content": "Example: the list items in this slide!"
+                },
+                {
+                    "type": "text",
+                    "content": "Another example: a basic component"
+                }
+            ]
+        },
+        {
+            "title": "A Basic Component",
+            "items": [
+                {
+                    "type": "text",
+                    "content": "A component that shows your name and age"
+                }
+            ]
+        },
+        {
+            "title": "Lifecycle",
+            "link": "https://vuejs.org/guide/essentials/lifecycle.html",
+            "items": [
+                {
+                    "type": "text",
+                    "content": "A component's life: create, mount, update, unmount"
+                },
+                {
+                    "type": "text",
+                    "content": "Hooks allow us to \"trigger\" actions before/after stages"
+                },
+                {
+                    "type": "text",
+                    "content": "Example: creating list items"
+                }
+            ]
+        },
+        {
+            "title": "Events: handling",
+            "link": "https://vuejs.org/guide/essentials/event-handling.html",
+            "items": [
+                {
+                    "type": "text",
+                    "content": "Add event listeners"
+                },
+                {
+                    "type": "text",
+                    "content": "Inline vs. method handlers"
+                },
+                {
+                    "type": "text",
+                    "content": "Example: the blocks below"
+                }
+            ]
+        },
+        {
+            "title": "Events: emmiting",
+            "link": "https://vuejs.org/guide/components/events.html#emitting-and-listening-to-events",
+            "items": [
+                {
+                    "type": "text",
+                    "content": "The parent element can listen to events on children"
+                },
+                {
+                    "type": "text",
+                    "content": "Use $emit() function"
+                },
+                {
+                    "type": "text",
+                    "content": "Example: the component we saw before"
+                }
+            ]
+        }
+    ]
+}
