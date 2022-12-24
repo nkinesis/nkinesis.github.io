@@ -1,184 +1,260 @@
 body {
-  font-family: 'Courier New', Courier, monospace !important;
+  font-family: "Courier New", Courier, monospace !important;
   font-size: 18px;
   line-height: 24px;
   background-color: #4EA0F6 !important;
   color: #fff;
-  overflow: hidden; }
-  @media only screen and (max-width: 500px) {
-    body {
-      overflow: visible; } }
+  overflow: hidden;
+}
+@media only screen and (max-width: 500px) {
+  body {
+    overflow: visible;
+  }
+}
+body .handle {
+  background-color: #4FFAE6;
+  font-weight: bold;
+  height: 28px;
+  padding-right: 8px;
+  user-select: none;
+  overflow: hidden;
+}
+@media only screen and (max-width: 550px) {
   body .handle {
-    background-color: #4FFAE6;
-    font-weight: bold;
-    height: 28px;
-    padding-right: 8px;
-    user-select: none;
-    overflow: hidden; }
-    @media only screen and (max-width: 550px) {
-      body .handle {
-        background-color: #000;
-        height: auto;
-        padding: 8px; } }
-    body .handle .left-corner {
-      padding: 0; }
-    body .handle .icon-file {
-      height: 28px; }
-      body .handle .icon-file:hover {
-        cursor: not-allowed; }
-      @media only screen and (max-width: 550px) {
-        body .handle .icon-file {
-          height: 35px; }
-          body .handle .icon-file:hover {
-            cursor: pointer; } }
-    body .handle .caption {
-      color: #fff;
-      padding-top: 5px;
-      background-color: black;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis; }
-      body .handle .caption .untitled {
-        display: initial; }
-      @media only screen and (max-width: 550px) {
-        body .handle .caption .untitled {
-          display: none; } }
-  body .navbar {
     background-color: #000;
-    user-select: none;
-    overflow: hidden; }
-    @media only screen and (max-width: 550px) {
-      body .navbar {
-        height: 0;
-        padding: 0;
-        transition: .5s; }
-        body .navbar.open {
-          overflow: visible;
-          height: 220px;
-          transition: .5s; } }
-    body .navbar div nav a {
-      padding: 10px;
-      color: #fff;
-      background-color: #000;
-      font-weight: bold;
-      cursor: pointer; }
-      @media only screen and (max-width: 550px) {
-        body .navbar div nav a {
-          width: 100%;
-          display: block; } }
-      body .navbar div nav a.selected {
-        color: #000;
-        background-color: #fff; }
-        body .navbar div nav a.selected:hover {
-          color: #000; }
-  body .window {
-    width: auto; }
-    body .window div .frame {
-      background-color: #fff;
-      width: 80%;
-      height: 76vh;
-      overflow: scroll;
-      overflow-x: hidden;
-      margin: 40px auto;
-      flex: 0;
-      border: 2px solid black; }
-      @media only screen and (max-width: 600px) {
-        body .window div .frame {
-          width: 100%;
-          height: 83vh;
-          margin: 25px auto; } }
-      body .window div .frame .caption {
-        color: #000;
-        border: 2px solid black;
-        border-collapse: collapse;
-        user-select: none;
-        height: auto;
-        min-height: 24px;
-        border-top: none;
-        border-left: none;
-        border-right: none;
-        text-overflow: ellipsis;
-        padding: 10px;
-        font-weight: bold;
-        font-size: 22px; }
-      body .window div .frame .content {
-        color: #000;
-        padding: 15px;
-        border: none;
-        font-size: 20px; }
-        body .window div .frame .content canvas {
-          margin: auto; }
-        body .window div .frame .content .headline {
-          max-width: 992px;
-          display: flex;
-          margin-bottom: 30px; }
-          @media only screen and (max-width: 992px) {
-            body .window div .frame .content .headline {
-              margin-bottom: 0; } }
-          body .window div .frame .content .headline img {
-            max-width: 150px;
-            height: 100%;
-            margin-right: 50px; }
-            @media only screen and (max-width: 992px) {
-              body .window div .frame .content .headline img {
-                display: none; } }
-        body .window div .frame .content .big-title {
-          font-size: 28px;
-          line-height: 1.2em;
-          margin-bottom: 10px;
-          font-weight: bold; }
-        body .window div .frame .content .title {
-          font-size: 22px;
-          line-height: 1.2em;
-          margin-bottom: 10px;
-          font-weight: bold; }
-        body .window div .frame .content .subtitle {
-          font-size: 20px;
-          line-height: 1.2em;
-          margin-bottom: 10px;
-          font-weight: bold; }
-        body .window div .frame .content .paragraph {
-          font-size: 18px;
-          line-height: 1.3em;
-          margin-bottom: 30px; }
-          body .window div .frame .content .paragraph li {
-            margin-bottom: 10px; }
-            @media only screen and (max-width: 550px) {
-              body .window div .frame .content .paragraph li {
-                margin-bottom: 20px; } }
-        @media only screen and (max-width: 550px) {
-          body .window div .frame .content ul.paragraph {
-            padding-inline-start: 20px; } }
-      body .window div .frame .contact-bar {
-        font-size: 18px;
-        font-weight: initial; }
-        body .window div .frame .contact-bar img {
-          width: 32px;
-          margin-right: 10px; }
-          @media only screen and (max-width: 400px) {
-            body .window div .frame .contact-bar img {
-              margin-bottom: 10px; } }
-        body .window div .frame .contact-bar a {
-          text-decoration: none; }
-  body footer {
-    position: absolute;
-    bottom: 0;
+    height: auto;
+    padding: 8px;
+  }
+}
+body .handle .left-corner {
+  padding: 0;
+}
+body .handle .icon-file {
+  height: 28px;
+}
+body .handle .icon-file:hover {
+  cursor: not-allowed;
+}
+@media only screen and (max-width: 550px) {
+  body .handle .icon-file {
+    height: 35px;
+  }
+  body .handle .icon-file:hover {
+    cursor: pointer;
+  }
+}
+body .handle .caption {
+  color: #fff;
+  padding-top: 5px;
+  background-color: black;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body .handle .caption .untitled {
+  display: initial;
+}
+@media only screen and (max-width: 550px) {
+  body .handle .caption .untitled {
+    display: none;
+  }
+}
+body .navbar {
+  background-color: #000;
+  user-select: none;
+  overflow: hidden;
+}
+@media only screen and (max-width: 550px) {
+  body .navbar {
+    height: 0;
+    padding: 0;
+    transition: 0.5s;
+  }
+  body .navbar.open {
+    overflow: visible;
+    height: 220px;
+    transition: 0.5s;
+  }
+}
+body .navbar div nav a {
+  padding: 10px;
+  color: #fff;
+  background-color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+@media only screen and (max-width: 550px) {
+  body .navbar div nav a {
     width: 100%;
-    height: 60px;
-    line-height: 60px;
-    user-select: none;
-    background-color: #f5f5f5;
-    background-color: #4FFAE6;
-    border-top: 2px solid black;
-    height: 40px;
-    overflow: hidden; }
-    @media only screen and (max-width: 500px) {
-      body footer {
-        position: fixed; } }
-    @media only screen and (max-height: 500px) {
-      body footer {
-        position: fixed; } }
-    body footer .icon-floppy {
-      width: 60px;
-      padding-top: 2px;
-      cursor: not-allowed; }
+    display: block;
+  }
+}
+body .navbar div nav a.selected {
+  color: #000;
+  background-color: #fff;
+}
+body .navbar div nav a.selected:hover {
+  color: #000;
+}
+body .window {
+  width: auto;
+}
+body .window div .frame {
+  background-color: #fff;
+  width: 80%;
+  height: 76vh;
+  overflow: scroll;
+  overflow-x: hidden;
+  margin: 40px auto;
+  flex: 0;
+  border: 2px solid black;
+}
+@media only screen and (max-width: 600px) {
+  body .window div .frame {
+    width: 100%;
+    height: 83vh;
+    margin: 25px auto;
+  }
+}
+body .window div .frame .caption {
+  color: #000;
+  border: 2px solid black;
+  border-collapse: collapse;
+  user-select: none;
+  height: auto;
+  min-height: 24px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  text-overflow: ellipsis;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 22px;
+}
+body .window div .frame img.section-img {
+  width: 50%;
+  min-width: 250px;
+  margin: auto;
+  display: block;
+}
+body .window div .frame .content {
+  color: #000;
+  padding: 15px;
+  border: none;
+  font-size: 20px;
+}
+body .window div .frame .content canvas {
+  margin: auto;
+}
+body .window div .frame .content .headline {
+  max-width: 992px;
+  display: flex;
+  margin-bottom: 30px;
+}
+@media only screen and (max-width: 992px) {
+  body .window div .frame .content .headline {
+    margin-bottom: 0;
+  }
+}
+body .window div .frame .content .headline img {
+  max-width: 150px;
+  height: 100%;
+  margin-right: 50px;
+}
+@media only screen and (max-width: 992px) {
+  body .window div .frame .content .headline img {
+    display: none;
+  }
+}
+body .window div .frame .content .big-title {
+  font-size: 28px;
+  line-height: 1.2em;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+body .window div .frame .content .title {
+  width: 100%;
+  font-size: 22px;
+  line-height: 1.2em;
+  margin-bottom: 10px;
+  font-weight: bold;
+  display: block;
+}
+body .window div .frame .content .subtitle {
+  font-size: 20px;
+  line-height: 1.2em;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+body .window div .frame .content .paragraph {
+  font-size: 18px;
+  line-height: 1.3em;
+  margin-bottom: 30px;
+}
+body .window div .frame .content .paragraph li {
+  margin-bottom: 10px;
+}
+@media only screen and (max-width: 550px) {
+  body .window div .frame .content .paragraph li {
+    margin-bottom: 20px;
+  }
+}
+body .window div .frame .content .legend {
+  width: 100%;
+  font-size: 16px;
+  line-height: 1.2em;
+  margin: 15px auto 30px;
+  color: #666;
+  text-align: center;
+}
+@media only screen and (max-width: 550px) {
+  body .window div .frame .content ul.paragraph {
+    padding-inline-start: 20px;
+  }
+}
+body .window div .frame .contact-bar {
+  font-size: 18px;
+  font-weight: initial;
+}
+body .window div .frame .contact-bar img {
+  width: 32px;
+  margin-right: 10px;
+}
+@media only screen and (max-width: 400px) {
+  body .window div .frame .contact-bar img {
+    margin-bottom: 10px;
+  }
+}
+body .window div .frame .contact-bar a {
+  text-decoration: none;
+}
+body footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  user-select: none;
+  background-color: #f5f5f5;
+  background-color: #4FFAE6;
+  border-top: 2px solid black;
+  height: 40px;
+  overflow: hidden;
+}
+@media only screen and (max-width: 500px) {
+  body footer {
+    position: fixed;
+  }
+}
+@media only screen and (max-height: 500px) {
+  body footer {
+    position: fixed;
+  }
+}
+body footer .icon-floppy {
+  width: 60px;
+  padding-top: 2px;
+  cursor: not-allowed;
+}
+
+/*# sourceMappingURL=main.css.map */
