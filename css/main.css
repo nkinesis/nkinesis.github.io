@@ -191,6 +191,18 @@ body .window div .frame .content .paragraph {
   line-height: 1.3em;
   margin-bottom: 30px;
 }
+body .window div .frame .content .paragraph.quote {
+  border-left: 5px solid black;
+  padding: 10px;
+  background-color: rgba(79, 250, 230, 0.1);
+  margin-left: 20px;
+}
+@media only screen and (max-width: 550px) {
+  body .window div .frame .content .paragraph.quote {
+    border-left: 3px solid black;
+    margin-left: 0;
+  }
+}
 body .window div .frame .content .paragraph li {
   margin-bottom: 10px;
 }

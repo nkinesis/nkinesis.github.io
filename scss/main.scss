@@ -177,6 +177,16 @@ body {
                         font-size: 18px;
                         line-height: 1.3em;
                         margin-bottom: 30px;
+                        &.quote {
+                            border-left: 5px solid black;
+                            padding: 10px;
+                            background-color: rgb(79 250 230 / 10%);
+                            margin-left: 20px;
+                            @media only screen and (max-width: 550px) {
+                                border-left: 3px solid black;
+                                margin-left: 0;
+                            }
+                        }
                         li {
                             margin-bottom: 10px;
                             @media only screen and (max-width: 550px) {
