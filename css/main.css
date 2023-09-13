@@ -148,7 +148,7 @@ body .window div .frame .content canvas {
   margin: auto;
 }
 body .window div .frame .content .headline {
-  max-width: 992px;
+  max-width: 897px;
   display: flex;
   margin-bottom: 30px;
 }
