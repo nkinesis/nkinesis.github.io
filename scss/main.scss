@@ -109,6 +109,21 @@ body {
   .window {
     width: auto;
 
+    .section-img {
+      display: block;
+      margin: auto;
+      max-width: 90%;
+    }
+
+    .frame {
+      .big-title {
+        font-size: 28px;
+        line-height: 1.2em;
+        margin-bottom: 16px;
+        font-weight: bold;
+      }
+    }
+
     .content {
       color: #000;
       padding: 15px;
@@ -155,13 +170,6 @@ body {
         }
       }
 
-      .big-title {
-        font-size: 28px;
-        line-height: 1.2em;
-        margin-bottom: 16px;
-        font-weight: bold;
-      }
-
       .title {
         width: 100%;
         font-size: 22px;
@@ -169,6 +177,7 @@ body {
         font-weight: bold;
         display: block;
         margin: 0;
+        margin-bottom: 10px;
       }
 
       .subtitle {
@@ -188,6 +197,7 @@ body {
           line-height: 1.5em;
 
           .activity {
+           
             margin-bottom: 20px;
             .date {
               color: #333;
@@ -245,17 +255,18 @@ body {
       }
 
       .activity {
+        display: flex;
         font-size: 18px;
         line-height: 1.3em;
         margin-bottom: 30px;
+        img {
+          width: 32px;
+          margin: 0 10px 0 0;
+        }
         .date {
           font-size: 16px;
           line-height: 1em;
           color: #333;
-        }
-        img {
-          width: 32px;
-          margin-bottom: 10px;
         }
       }
     }
