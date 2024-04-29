@@ -15,24 +15,21 @@
 <body>
     <div class="container-fluid">
         <div class="handle row">
-            <div class="left-corner col-3 col-md-4">
-                <img class="icon-file" alt="Menu" src="../img/icons/file.jpg">
-            </div>
-            <div class="caption col-6 col-md-4 text-center">
-                Personal page <span class="untitled">- (untitled)</span>
-            </div>
-            <div class="col-3 col-md-3"></div>
-        </div>
-        <div class="navbar row">
-            <div class="col-12">
-                <nav>
-                    <a href="../index.html">About</a>
-                    <a href="../publications.html">Publications</a>
-                    <a href="../cv.html">CV</a>
-                    <a href="../posts.html" class="selected">Posts</a>
-                </nav>
+            <div class="d-flex col-12 justify-content-center align-items-center">
+                <img src="../img/logo.svg">
             </div>
         </div>
+
+
+        <nav class="my-navbar row">
+            <ul class="d-flex col-12">
+                <li><a href="../index.html" class="selected">About</a>
+                <li><a href="../publications.html">Publications</a></li>
+                <li><a href="../cv.html">CV</a></li>
+                <li><a href="../posts.html">Posts</a></li>
+            </ul>
+        </nav>
+
         <div class="window row">
             <div class="col-12">
                 <div class="frame">
@@ -199,32 +196,10 @@
                 </div>
             </div>
         </div>
-    </div>
-    <footer>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-3">
-                    <img class="icon-floppy" title="Floppy" alt="Floppy" src="../img/icons/floppy.png">
-                </div>
-                <div class="col-9"></div>
-            </div>
-        </div>
-    </footer>
+
 
 </body>
 
-<style>
-    .content img {
-        display: block;
-        margin: auto;
-    }
-
-    .content figcaption {
-        margin-top: 5px;
-        text-align: center;
-    }
-</style>
-
-<script src="../js/main.js"></script>
+<script src="js/main.js"></script>
 
 </html>
