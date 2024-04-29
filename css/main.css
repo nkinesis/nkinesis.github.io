@@ -1,10 +1,9 @@
 body {
-  font-family: "Segoe UI", "Roboto", Arial, sans-serif !important;
+  font-family: "Segoe UI", "Roboto", Arial, sans-serif;
   font-size: 18px;
   line-height: 24px;
-  background-color: #4EA0F6 !important;
+  background-color: #bfbfbf !important;
   color: #fff;
-  overflow: hidden;
 }
 @media only screen and (max-width: 500px) {
   body {
@@ -12,9 +11,9 @@ body {
   }
 }
 body .handle {
-  background-color: #4FFAE6;
+  background-image: linear-gradient(to left, #82adff, #1a6fec, #1c30d2, #213fe2);
   font-weight: bold;
-  height: 28px;
+  height: 84px;
   padding-right: 8px;
   user-select: none;
   overflow: hidden;
@@ -24,23 +23,6 @@ body .handle {
     background-color: #000;
     height: auto;
     padding: 8px;
-  }
-}
-body .handle .left-corner {
-  padding: 0;
-}
-body .handle .icon-file {
-  height: 28px;
-}
-body .handle .icon-file:hover {
-  cursor: not-allowed;
-}
-@media only screen and (max-width: 550px) {
-  body .handle .icon-file {
-    height: 35px;
-  }
-  body .handle .icon-file:hover {
-    cursor: pointer;
   }
 }
 body .handle .caption {
@@ -59,160 +41,159 @@ body .handle .caption .untitled {
     display: none;
   }
 }
-body .navbar {
-  background-color: #000;
+body .my-navbar {
+  border-top: 1px solid #707070;
+  border-bottom: 1px solid #fff;
+  background-color: #a5a5a5;
   user-select: none;
-  overflow: hidden;
 }
 @media only screen and (max-width: 550px) {
-  body .navbar {
+  body .my-navbar {
     height: 0;
     padding: 0;
     transition: 0.5s;
   }
-  body .navbar.open {
+  body .my-navbar.open {
     overflow: visible;
-    height: 220px;
     transition: 0.5s;
   }
 }
-body .navbar div nav a {
-  padding: 10px;
-  color: #fff;
-  background-color: #000;
-  font-weight: bold;
+body .my-navbar ul {
+  padding-inline: 0;
+  margin-bottom: 0;
+}
+body .my-navbar ul li {
+  list-style-type: none;
+}
+body .my-navbar ul li a {
+  display: block;
+  padding: 7px 17px 6px 16px;
+  color: #000;
+  background-color: #c1c1c1;
+  border-top: 1px solid #ffffff;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
   cursor: pointer;
 }
 @media only screen and (max-width: 550px) {
-  body .navbar div nav a {
+  body .my-navbar ul li a {
     width: 100%;
     display: block;
   }
 }
-body .navbar div nav a.selected {
+body .my-navbar ul li a.selected {
   color: #000;
-  background-color: #fff;
+  background-color: #c1c1c1;
+  border-top: 1px solid #e0e0e0;
+  border-left: 1px solid #e0e0e0;
+  border-right: 1px solid #ababab;
+  border-bottom: 1px solid #ababab;
 }
-body .navbar div nav a.selected:hover {
+body .my-navbar ul li a.selected:hover {
   color: #000;
 }
 body .window {
   width: auto;
 }
-body .window div .frame {
-  background-color: #fff;
-  width: 80%;
-  height: 76vh;
-  overflow: scroll;
-  overflow-x: hidden;
-  margin: 40px auto;
-  flex: 0;
-  border: 2px solid black;
-}
-@media only screen and (max-width: 600px) {
-  body .window div .frame {
-    width: 100%;
-    height: 83vh;
-    margin: 25px auto;
-  }
-}
-body .window div .frame .caption {
-  color: #000;
-  border: 2px solid black;
-  border-collapse: collapse;
-  user-select: none;
-  height: auto;
-  min-height: 24px;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  text-overflow: ellipsis;
-  padding: 10px;
-  font-weight: bold;
-  font-size: 22px;
-}
-body .window div .frame img.section-img {
-  width: 50%;
-  min-width: 250px;
-  max-width: 800px;
-  margin: auto;
-  display: block;
-}
-body .window div .frame .content {
+body .window .content {
   color: #000;
   padding: 15px;
   border: none;
   font-size: 20px;
+  margin-top: 52px;
 }
-body .window div .frame .content canvas {
+body .window .content canvas {
   margin: auto;
 }
-body .window div .frame .content .headline {
-  max-width: 897px;
-  display: flex;
+body .window .content .headline {
+  display: block;
   margin-bottom: 30px;
 }
 @media only screen and (max-width: 992px) {
-  body .window div .frame .content .headline {
+  body .window .content .headline {
     margin-bottom: 0;
   }
 }
-body .window div .frame .content .headline img {
-  max-width: 150px;
+body .window .content .headline img#me {
+  max-width: 180px;
   height: 100%;
   margin-right: 50px;
+  margin-bottom: 16px;
 }
 @media only screen and (max-width: 992px) {
-  body .window div .frame .content .headline img {
+  body .window .content .headline img#me {
     display: none;
   }
 }
-body .window div .frame .content .big-title {
+body .window .content .title-box {
+  display: flex;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+body .window .content .title-box.dashed {
+  border: 2px dashed #000;
+}
+body .window .content .title-box img {
+  width: 32px;
+  margin-right: 10px;
+}
+body .window .content .big-title {
   font-size: 28px;
   line-height: 1.2em;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
   font-weight: bold;
 }
-body .window div .frame .content .title {
+body .window .content .title {
   width: 100%;
   font-size: 22px;
   line-height: 1.2em;
-  margin-bottom: 10px;
   font-weight: bold;
   display: block;
+  margin: 0;
 }
-body .window div .frame .content .subtitle {
+body .window .content .subtitle {
   font-size: 20px;
   line-height: 1.2em;
   margin-bottom: 10px;
   font-weight: bold;
 }
-body .window div .frame .content .paragraph {
+body .window .content .paragraph {
   font-size: 18px;
   line-height: 1.3em;
   margin-bottom: 30px;
 }
-body .window div .frame .content .paragraph.quote {
+body .window .content .paragraph.list {
+  padding-left: 30px;
+  line-height: 1.5em;
+}
+body .window .content .paragraph.list .activity {
+  margin-bottom: 20px;
+}
+body .window .content .paragraph.list .activity .date {
+  color: #333;
+}
+body .window .content .paragraph.quote {
   border-left: 5px solid black;
   padding: 10px;
   background-color: rgba(79, 250, 230, 0.1);
   margin-left: 20px;
 }
 @media only screen and (max-width: 550px) {
-  body .window div .frame .content .paragraph.quote {
+  body .window .content .paragraph.quote {
     border-left: 3px solid black;
     margin-left: 0;
   }
 }
-body .window div .frame .content .paragraph li {
+body .window .content .paragraph li {
   margin-bottom: 10px;
 }
 @media only screen and (max-width: 550px) {
-  body .window div .frame .content .paragraph li {
+  body .window .content .paragraph li {
     margin-bottom: 20px;
   }
 }
-body .window div .frame .content .legend {
+body .window .content .legend {
   width: 100%;
   font-size: 16px;
   line-height: 1.2em;
@@ -221,53 +202,53 @@ body .window div .frame .content .legend {
   text-align: center;
 }
 @media only screen and (max-width: 550px) {
-  body .window div .frame .content ul.paragraph {
+  body .window .content ul.paragraph {
     padding-inline-start: 20px;
   }
 }
-body .window div .frame .contact-bar {
-  font-size: 18px;
-  font-weight: initial;
+body .window .content a {
+  color: #213fe2;
+  text-decoration: underline;
 }
-body .window div .frame .contact-bar img {
+body .window .content .copyright {
+  font-size: 16px;
+  line-height: 1em;
+  color: #333;
+  display: flex;
+  justify-content: flex-end;
+}
+body .window .content .activity {
+  font-size: 18px;
+  line-height: 1.3em;
+  margin-bottom: 30px;
+}
+body .window .content .activity .date {
+  font-size: 16px;
+  line-height: 1em;
+  color: #333;
+}
+body .window .content .activity img {
   width: 32px;
+  margin-bottom: 10px;
+}
+body .window .contact-bar {
+  display: flex;
+  margin-bottom: 16px;
+}
+body .window .contact-bar a {
+  text-decoration: none;
+  display: block;
   margin-right: 10px;
 }
+body .window .contact-bar a img {
+  width: 32px;
+  height: auto;
+  margin-right: 5px;
+}
 @media only screen and (max-width: 400px) {
-  body .window div .frame .contact-bar img {
+  body .window .contact-bar a img {
     margin-bottom: 10px;
   }
-}
-body .window div .frame .contact-bar a {
-  text-decoration: none;
-}
-body footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 60px;
-  line-height: 60px;
-  user-select: none;
-  background-color: #f5f5f5;
-  background-color: #4FFAE6;
-  border-top: 2px solid black;
-  height: 40px;
-  overflow: hidden;
-}
-@media only screen and (max-width: 500px) {
-  body footer {
-    position: fixed;
-  }
-}
-@media only screen and (max-height: 500px) {
-  body footer {
-    position: fixed;
-  }
-}
-body footer .icon-floppy {
-  width: 60px;
-  padding-top: 2px;
-  cursor: not-allowed;
 }
 
 /*# sourceMappingURL=main.css.map */

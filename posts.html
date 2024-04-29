@@ -15,55 +15,81 @@
 <body>
     <div class="container-fluid">
         <div class="handle row">
-            <div class="left-corner col-3 col-md-4">
-                <img class="icon-file" alt="Menu" src="img/icons/file.jpg">
-            </div>
-            <div class="caption col-6 col-md-4 text-center">
-                Personal page <span class="untitled">- (untitled)</span>
-            </div>
-            <div class="col-3 col-md-3"></div>
-        </div>
-        <div class="navbar row">
-            <div class="col-12">
-                <nav>
-                    <a href="index.html">About</a>
-                    <a href="publications.html">Publications</a>
-                    <a href="cv.html">CV</a>
-                    <a href="posts.html" class="selected">Posts</a>
-                </nav>
+            <div class="d-flex col-12 justify-content-center align-items-center">
+                <img src="img/logo.svg">
             </div>
         </div>
-        <div class="window row">
-            <div class="col-12">
+
+
+        <nav class="my-navbar row">
+            <ul class="d-flex col-12">
+                <li><a href="index.html">About</a>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="cv.html">CV</a></li>
+                <li><a href="posts.html" class="selected">Posts</a></li>
+            </ul>
+        </nav>
+
+        <div class="window row justify-content-center">
+            <div class="content col-8">
                 <div class="frame">
+                    <div>
+                        <p class="big-title">Posts</p>
+                        <br>
+                    </div>
                     <div class="container-fluid">
-                        <div class="row caption">
-                            Posts
-                        </div>
-                        <div class="row content contact">
-                            <ul class="paragraph">
-                                <li><b>2023-03-15:</b> <a href="posts/software-architecture-whats-the-recipe.html" target="_blank">Software Architecture: What is the Recipe?</a></li>
-                                <li><b>2022-11-09:</b> <a href="posts/bridges-to-bremen-what-happenned-at-ifip-icec-2022.html">Bridges to Bremen: reporting from IFIP-ICEC 2022</a></li>
-                                <li><b>2022-05-29:</b> <a href="https://blog.ptidej.net/what-i-learned-compiling-open-source-game-engines/" target="_blank">What I learned compiling open-source game engines</a></li>
-                                <li><b>2021-04-07:</b> <a href="https://www.concordia.ca/news/stories/2021/04/07/the-video-game-industrys-problems-are-mostly-due-to-people-not-technology-concordia-researchers-argue.html" target="_blank">The video game industry's problems are mostly due to people, not technology</a></li>
-                            </ul>
+
+                        <div class="row contact">
+
+                            <div class="col-12">
+                                <div class="activity">
+                                    <img src="img/icons/open-folder.svg" alt="Icon" aria-hidden="true">
+                                    <div class="date">2023-12-01</div>
+                                    <a href="./posts/bologna-italy-reporting-from-ifip-icec-2023.html"
+                                        target="_blank">From Bologna, Italy: reporting from IFIP-ICEC 2023</a>
+                                </div>
+
+                                <div class="activity">
+                                    <img src="img/icons/open-folder.svg" alt="Icon" aria-hidden="true">
+                                    <div class="date">2023-03-15</div>
+                                    <a href="./posts/software-architecture-whats-the-recipe.html"
+                                        target="_blank">Software
+                                        Architecture: What is the Recipe?</a>
+                                </div>
+
+                                <div class="activity">
+                                    <img src="img/icons/open-folder.svg" alt="Icon" aria-hidden="true">
+                                    <div class="date">2023-11-09</div>
+                                    <a href="./posts/bridges-to-bremen-what-happenned-at-ifip-icec-2022.html"
+                                        target="_blank">Bridges to Bremen: reporting from IFIP-ICEC 2022</a>
+                                </div>
+
+                                <div class="activity">
+                                    <img src="img/icons/open-folder.svg" alt="Icon" aria-hidden="true">
+                                    <div class="date">2023-05-29</div>
+                                    <a href="https://blog.ptidej.net/what-i-learned-compiling-open-source-game-engines/"
+                                        target="_blank">What I learned compiling open-source game engines</a>
+                                </div>
+
+                                <div class="activity">
+                                    <img src="img/icons/open-folder.svg" alt="Icon" aria-hidden="true">
+                                    <div class="date">2023-04-07</div>
+                                    <a href="https://www.concordia.ca/news/stories/2021/04/07/the-video-game-industrys-problems-are-mostly-due-to-people-not-technology-concordia-researchers-argue.html"
+                                        target="_blank">The video game industry's problems are mostly due to people, not
+                                        technology</a>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <footer>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-3">
-                    <img class="icon-floppy" title="Floppy" alt="Floppy"
-                        src="img/icons/floppy.png">
+
+                <div class="copyright">
+                    Copyright © 2019-2024 Gabriel C. Ullmann
                 </div>
-                <div class="col-9"></div>
             </div>
         </div>
-    </footer>
+
 
 </body>
 

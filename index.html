@@ -15,83 +15,89 @@
 <body>
     <div class="container-fluid">
         <div class="handle row">
-            <div class="left-corner col-3 col-md-4">
-                <img class="icon-file" alt="Menu" src="img/icons/file.jpg">
-            </div>
-            <div class="caption col-6 col-md-4 text-center">
-                Personal page <span class="untitled">- (untitled)</span>
-            </div>
-            <div class="col-3 col-md-3"></div>
-        </div>
-        <div class="navbar row">
-            <div class="col-12">
-                <nav>
-                    <a href="index.html" class="selected">About</a>
-                    <a href="publications.html">Publications</a>
-                    <a href="cv.html">CV</a>
-                    <a href="posts.html">Posts</a>
-                </nav>
+            <div class="d-flex col-12 justify-content-center align-items-center">
+                <img src="img/logo.svg">
             </div>
         </div>
-        <div class="window row">
-            <div class="col-12">
-                <div class="frame">
-                    <div class="container-fluid">
-                        <div class="row content about">
-                            <div class="col-12">
-                                <div class="headline">
-                                    <img class="me" src="img/other/me.jpg" alt="Photo of Gabriel C. Ullmann">
-                                    <div>
-                                        <p class="big-title">Gabriel C. Ullmann</p>
-                                        <p class="paragraph">I am a Software Engineering MSc student at <a
-                                                href="https://concordia.ca" target="_blank">Concordia University</a>, in
-                                            Montreal, Canada. I am part of the <a href="http://www.ptidej.net/" target="_blank">Ptidej team</a>,
-                                            under the supervision of Dr. Yann-Gaël Guéhéneuc and co-supervised by Dr. Fabio
-                                            Petrillo.</p>
-                                    </div>
-                                </div>
-                                <p class="title">Topics of Interest</p>
-                                <ul class="paragraph">
-                                    <li>Game Engine Architecture</li>
-                                    <li>Video Game Development Problems</li>
-                                    <li>Artificial Intelligence</li>
-                                    <li>Web Development</li>
-                                </ul>
 
-                                <p class="title">Recent activity</p>
-                                <ul class="paragraph">
-                                    <li><b>[PUBL] 2023-09-13:</b> <a href="https://arxiv.org/pdf/2309.06329.pdf" target="_blank">Visualising Game Engine Subsystem Coupling Patterns</a></li>
-                                    <li><b>[PUBL] 2022-05-19:</b> <a href="https://arxiv.org/abs/2303.02429" target="_blank">An Exploratory Approach for Game Engine Architecture Recovery</a></li>
-                                    <li><b>[POST] 2023-03-15:</b> <a href="posts/software-architecture-whats-the-recipe.html" target="_blank">Software Architecture: What is the Recipe?</a></li>
-                                    <li><b>[POST] 2022-11-09:</b> <a href="posts/bridges-to-bremen-what-happenned-at-ifip-icec-2022.html" target="_blank">Bridges to Bremen: reporting from IFIP-ICEC 2022</a></li>
-                                    <li><b>[PUBL] 2022-07-13:</b> <a href="https://arxiv.org/abs/2207.06473" target="_blank">Game Engine Comparative Anatomy</a></li>
-                                    <li><b>[POST] 2022-05-29:</b> <a href="https://blog.ptidej.net/what-i-learned-compiling-open-source-game-engines/" target="_blank">What I learned compiling open-source game engines</a></li>
-                                    <li><b>[PUBL] 2022-05-01:</b> <a href="https://dl.acm.org/doi/10.1145/3524494.3527628" target="_blank">What
-                                        Makes a Game High-rated? Towards
-                                        Factors of Video Game
-                                        Success</a></li>
-                                    <li><b>[PUBL] 2022-05-01:</b> <a href="https://dl.acm.org/doi/10.1145/3524494.3527623" target="_blank">Game Project Management
-                                        Anti-patterns</a></li>
-                                    <li><b>[POST] 2021-04-07:</b> <a href="https://www.concordia.ca/news/stories/2021/04/07/the-video-game-industrys-problems-are-mostly-due-to-people-not-technology-concordia-researchers-argue.html" target="_blank">The video game industry's problems are mostly due to people, not technology</a></li>
-                                </ul>
-                            </div>
+
+        <nav class="my-navbar row">
+            <ul class="d-flex col-12">
+                <li><a href="index.html" class="selected">About</a>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="cv.html">CV</a></li>
+                <li><a href="posts.html">Posts</a></li>
+            </ul>
+        </nav>
+
+        <div class="window row justify-content-center">
+            <div class="content col-8">
+                <div class="headline">
+                    <img id="me" src="img/other/me.jpg" alt="Photo of Gabriel C. Ullmann">
+                    <div>
+                        <p class="big-title">Gabriel C. Ullmann</p>
+                        <div class="contact-bar">
+                            <a href="https://www.linkedin.com/in/gabriel-cavalheiro-ullmann-470819170/" target="_blank"
+                                title="LinkedIn">
+                                <img src="img/icons/linkedin.png" alt="LinkedIn">
+                            </a>
+                            <a href="https://github.com/nkinesis" target="_blank" title="GitHub">
+                                <img src="img/icons/github.png" alt="GitHub">
+                            </a>
+                            <a href="https://ullmanngabriel.medium.com/" target="_blank" title="Medium">
+                                <img src="img/icons/medium.png" alt="Medium">
+                            </a>
+                            <a href="https://orcid.org/0000-0002-3274-0789" target="_blank" title="ORCID">
+                                <img src="img/icons/orcid.png" alt="ORCID">
+                            </a>
+                            <a href="mailto:g_cavalh@live.concordia.ca" target="_blank" title="Email">
+                                <img src="img/icons/email.png" alt="Email">
+                            </a>
                         </div>
+                        <p class="paragraph">I am a research support professional in the <a
+                                href="https://www.concordia.ca/research/chairs/smart-cities.html" target="_blank">CERC
+                                Smart Cities Team</a> at the Next-Generation Cities Institute, in Montreal, Canada.
+                            Currently, I work in the development of <a
+                                href="https://www.concordia.ca/research/cities-institute/initiatives/tools4cities/citylayers.html"
+                                target="_blank">CityLayers</a>,
+                            a tool for city data visualisation and simulation. In 2023, I completed
+                            a
+                            Master's
+                            degree in Software Engineering at Concordia University, under the supervision of Dr.
+                            Yann-Gaël
+                            Guéhéneuc and co-supervised by Dr. Fabio Petrillo.
+                        </p>
+                        <p class="paragraph">
+                            During my Master's, my main research topic was game engine
+                            architecture, more specifically those of open-source game engines such as Unreal, CryEngine
+                            and Godot. In this website, you can find out more about my academic and professional
+                            projects, as
+                            well as posts on various Software Engineering topics, which I write periodically.
+                        </p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <footer>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-3">
-                    <img class="icon-floppy" title="Floppy" alt="Floppy"
-                        src="img/icons/floppy.png">
+
+
+                <div class="title-box align-items-start">
+                    <img src="img/icons/topics.svg" alt="Icon" aria-hidden="true">
+                    <p class="title">Topics of Interest</p>
                 </div>
-                <div class="col-9"></div>
+                <ul class="paragraph list">
+                    <li>Game Engine Architecture</li>
+                    <li>Video Game Development Problems</li>
+                    <li>Front-End Web Development</li>
+                    <li>Artificial Intelligence</li>
+                </ul>
+
+
+
+                <div class="copyright">
+                    Copyright © 2019-2024 Gabriel C. Ullmann
+                </div>
+
             </div>
         </div>
-    </footer>
+
 
 </body>
 
