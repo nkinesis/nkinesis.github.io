@@ -4,7 +4,7 @@ const day = date.getDate()
 const month = date.getMonth()
 
 // Em 21 de agosto de 1996 a produção do Chevrolet Monza foi encerrada, totalizando 857.810 vendas em território brasileiro
-if (day === 21 || month === 8) {
+if (day === 21 && month === 8) {
     myImage.src = "img/other/me2.jpg"
 }
 
