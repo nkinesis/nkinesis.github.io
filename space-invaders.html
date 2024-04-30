@@ -8,45 +8,48 @@
     <meta name="description" content="Gabriel Ullmann's personal page">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
+    <link rel="prefetch" as="style" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="prefetch" href="logo.png" as="image">
     <link rel="icon" href="logo.png">
 </head>
 
 <body>
     <div class="container-fluid">
         <div class="handle row">
-            <div class="left-corner col-3 col-md-4">
-                <img class="icon-file" alt="Menu" src="img/icons/file.jpg">
-            </div>
-                <div class="caption col-6 col-md-4 text-center">
-               <span class="untitled">Space Invaders</span>
-            </div>
-            <div class="col-3 col-md-3"></div>
-        </div>
-        <div class="navbar row">
-            <div class="col-12">
-                <nav>
-                    <a href="index.html">Back to homepage</a>
-                </nav>
+            <div class="d-flex col-12 justify-content-center align-items-center">
+                <img src="img/logo.svg" alt="Gabriel C. Ullmann's website logo" aria-hidden="true">
             </div>
         </div>
-        <div class="window row">
-            <div class="col-12">
+
+
+        <nav class="my-navbar row">
+            <ul class="d-flex col-12">
+                <li><a href="index.html" >About</a>
+                <li><a href="publications.html">Publications</a></li>
+                <li><a href="cv.html">CV</a></li>
+                <li><a href="posts.html">Posts</a></li>
+                <li><a href="space-invaders.html" class="selected">????</a></li>
+            </ul>
+        </nav>
+
+        <div class="window row justify-content-center">
+            <div class="content col-8">
                 <div class="frame">
-                    <div class="container-fluid">
-                        <div class="row content about">
-                            <iframe id="bulbagame" src="./game/spaceinvaders.html" frameborder="0" width="1000" height="605" style="margin:auto"></iframe>
-                        </div>
-                    </div>
+                    <p class="big-title">Space Invaders</p>
+                    <iframe id="space" src="./game/spaceinvaders.html" frameborder="0" width="1000" height="605" style="margin:auto"></iframe>
                 </div>
+
+                <div class="copyright">
+                    Copyright © 2019-2024 Gabriel C. Ullmann
+                </div>
+
             </div>
         </div>
-    </div>
-    <footer>
-        <div class="container-fluid">
-        </div>
-    </footer>
+
 
 </body>
+
+<script src="js/main.js"></script>
+
 </html>
