@@ -10,9 +10,8 @@ Here are setup instructions for myself so I don't forget.
 
 
 ## Run Sass
-
     npx sass scss/main.scss css/main.css
 
 # Backlog
 - Test on iphone
-- Add floppy easter egg
+- Redo easter egg game on Godot
