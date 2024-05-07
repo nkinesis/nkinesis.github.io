@@ -135,6 +135,10 @@ body {
         margin-top: 0;
       }
 
+      @media only screen and (max-width: 550px) {
+        margin-top: 38px;
+      }
+
       canvas {
         margin: auto;
       }

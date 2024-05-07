@@ -119,6 +119,11 @@ body .window .content {
     margin-top: 0;
   }
 }
+@media only screen and (max-width: 550px) {
+  body .window .content {
+    margin-top: 38px;
+  }
+}
 body .window .content canvas {
   margin: auto;
 }
