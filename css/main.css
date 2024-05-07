@@ -22,7 +22,7 @@ body .handle {
   body .handle {
     background-color: #000;
     height: auto;
-    padding: 8px;
+    padding: 16px;
   }
 }
 body .handle .caption {
