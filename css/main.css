@@ -138,7 +138,7 @@ body .window .content .headline {
 }
 body .window .content .headline img#me {
   max-width: 180px;
-  height: 100%;
+  height: auto;
   margin-right: 50px;
   margin-bottom: 16px;
 }
