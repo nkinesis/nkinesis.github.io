@@ -269,7 +269,12 @@ body {
         margin-bottom: 30px;
         img {
           width: 32px;
+          height: auto;
           margin: 0 10px 0 0;
+          @media only screen and (max-width: 992px) {
+            width: auto;
+            height: 32px;
+          }
         }
         .date {
           font-size: 16px;

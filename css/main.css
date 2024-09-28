@@ -241,7 +241,14 @@ body .window .content .activity {
 }
 body .window .content .activity img {
   width: 32px;
+  height: auto;
   margin: 0 10px 0 0;
+}
+@media only screen and (max-width: 992px) {
+  body .window .content .activity img {
+    width: auto;
+    height: 32px;
+  }
 }
 body .window .content .activity .date {
   font-size: 16px;
