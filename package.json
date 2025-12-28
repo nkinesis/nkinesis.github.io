@@ -1,4 +1,8 @@
 {
+  "name": "nkinesis-github-io",
+  "private": true,
+  "version": "1.2.0",
+  "license": "MIT",
   "devDependencies": {
     "sass": "^1.58.3"
   }
