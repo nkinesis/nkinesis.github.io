@@ -13,5 +13,4 @@ Here are setup instructions for myself so I don't forget.
     npx sass scss/main.scss css/main.css
 
 # Backlog
-- Test on iphone
-- Redo easter egg game on Godot
+Nothing for now 😃
